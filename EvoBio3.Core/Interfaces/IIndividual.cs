@@ -9,6 +9,8 @@ namespace EvoBio3.Core.Interfaces
 		IndividualType Type { get; }
 		int Id { get; }
 		int OffspringCount { get; set; }
+		double GeneticQuality { get; }
+		double PhenotypicQuality { get; }
 		double AdjustedFecundity { get; set; }
 		double Fecundity { get; set; }
 		string Name { get; }

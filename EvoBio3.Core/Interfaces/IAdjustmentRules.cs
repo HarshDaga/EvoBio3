@@ -9,6 +9,7 @@
 		TIteration Iteration { set; }
 
 		void Reset ( );
+		void AdjustStep1 ( );
 		void AdjustBoth1Step2 ( );
 		void AdjustBoth2Step2 ( );
 		void AdjustResonationStep2 ( );

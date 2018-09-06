@@ -9,6 +9,8 @@ namespace EvoBio3.Core.Collections
 		public int Id { get; }
 		public Guid Guid { get; } = Guid.NewGuid ( );
 		public IndividualType Type { get; }
+		public double GeneticQuality { get; protected set; }
+		public double PhenotypicQuality { get; protected set; }
 		public double Fecundity { get; set; }
 		public double AdjustedFecundity { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using EvoBio3.Core.Enums;
+using EvoBio3.Core.Extensions;
 using EvoBio3.Core.Interfaces;
 using NLog;
 
@@ -15,7 +16,7 @@ namespace EvoBio3.Core
 	{
 		// ReSharper disable once StaticMemberInGenericType
 		protected static Logger Logger { get; set; } = LogManager.GetCurrentClassLogger ( );
-		public bool IsLoggingEnabled { get; protected set; }
+		public bool IsLoggingEnabled { get; set; }
 
 		public IList<TIndividual> AllIndividuals
 		{
@@ -47,9 +48,11 @@ namespace EvoBio3.Core
 			set => Population.NullGroup = value;
 		}
 
+		public int Step1PerishCount { get; protected set; }
+		public int Step2PerishCount { get; protected set; }
 		public IList<TIndividual> Step1Rejects { get; protected set; }
 		public IList<TIndividual> Step2Rejects { get; protected set; }
-		public int TotalPerished => Step1Rejects?.Count ?? 0 + Step2Rejects?.Count ?? 0;
+		public int TotalPerished => Step1PerishCount + Step2PerishCount;
 
 		public TGroup[] AllGroups
 		{
@@ -59,11 +62,15 @@ namespace EvoBio3.Core
 
 		public TVariables V { get; protected set; }
 
+
 		public IAdjustmentRules<TIndividual, TGroup, TVariables,
 			ISingleIteration<TIndividual, TGroup, TVariables>> AdjustmentRules { get; protected set; }
 
 		public double PerishedPercent { get; protected set; }
 		public int GenerationsPassed { get; protected set; }
+		public double ResonationThreshold { get; protected set; }
+		public double Both1Threshold { get; protected set; }
+		public double Both2Threshold { get; protected set; }
 
 		public IHeritabilitySummary Heritability { get; set; }
 		public Winner Winner { get; set; }
@@ -117,6 +124,33 @@ namespace EvoBio3.Core
 				Logger.Debug ( $"\n\n{V}\n" );
 		}
 
+		public virtual void ResetLists ( )
+		{
+			Step1Rejects?.Clear ( );
+			Step2Rejects?.Clear ( );
+		}
+
+		public virtual void CalculateThresholds ( )
+		{
+			var values = AllIndividuals
+				.Select ( x => x.PhenotypicQuality )
+				.OrderBy ( x => x )
+				.Skip ( TotalPerished )
+				.ToList ( );
+
+			ResonationThreshold = values.AtPercentage ( V.Pr );
+			Both1Threshold      = values.AtPercentage ( V.Pb1 );
+			Both2Threshold      = values.AtPercentage ( V.Pb2 );
+
+			if ( IsLoggingEnabled )
+			{
+				Logger.Debug ( "\nCalculate Thresholds:\n" );
+				Logger.Debug ( $"Resonation Threshold @ {V.Pr / 100:P} = {ResonationThreshold:F4}" );
+				Logger.Debug ( $"Both1 Threshold      @ {V.Pb1 / 100:P} = {Both1Threshold:F4}" );
+				Logger.Debug ( $"Both2 Threshold      @ {V.Pb2 / 100:P} = {Both2Threshold:F4}" );
+			}
+		}
+
 		public virtual void CreateInitialPopulation ( )
 		{
 			Population.Init ( V );
@@ -153,16 +187,13 @@ namespace EvoBio3.Core
 
 		public abstract void CalculateHeritability ( );
 
-		public virtual void AfterLastGeneration ( )
-		{
-		}
-
 		public virtual void Run ( )
 		{
 			CreateInitialPopulation ( );
 			AddGenerationHistory ( );
 			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )
 			{
+				ResetLists ( );
 				Perish1 ( );
 				Perish2 ( );
 				CalculateFecundity ( );
@@ -184,6 +215,10 @@ namespace EvoBio3.Core
 
 			if ( IsLoggingEnabled )
 				Logger.Debug ( $"\n\nWinner: {Winner}" );
+		}
+
+		public virtual void AfterLastGeneration ( )
+		{
 		}
 
 		protected void AddGenerationHistory ( )

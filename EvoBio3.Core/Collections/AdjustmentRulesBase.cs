@@ -26,6 +26,10 @@ namespace EvoBio3.Core.Collections
 			Iteration = null;
 		}
 
+		public virtual void AdjustStep1 ( )
+		{
+		}
+
 		public virtual void AdjustBoth1Step2 ( )
 		{
 		}

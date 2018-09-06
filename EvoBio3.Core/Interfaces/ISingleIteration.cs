@@ -8,20 +8,25 @@ namespace EvoBio3.Core.Interfaces
 		where TGroup : IIndividualGroup<TIndividual>, new ( )
 		where TVariables : IVariables
 	{
-		bool IsLoggingEnabled { get; }
+		bool IsLoggingEnabled { get; set; }
 		TVariables V { get; }
-		TGroup[] AllGroups { get; set; }
-		IList<TIndividual> AllIndividuals { get; set; }
-		TGroup Both1Group { get; set; }
-		TGroup Both2Group { get; set; }
-		TGroup ResonationGroup { get; set; }
-		TGroup NullGroup { get; set; }
+		TGroup[] AllGroups { get; }
+		IList<TIndividual> AllIndividuals { get; }
+		TGroup Both1Group { get; }
+		TGroup Both2Group { get; }
+		TGroup ResonationGroup { get; }
+		TGroup NullGroup { get; }
+		int Step1PerishCount { get; }
+		int Step2PerishCount { get; }
 		IList<TIndividual> Step1Rejects { get; }
 		IList<TIndividual> Step2Rejects { get; }
 		int TotalPerished { get; }
 		IHeritabilitySummary Heritability { get; }
 		Winner Winner { get; }
 		int GenerationsPassed { get; }
+		double ResonationThreshold { get; }
+		double Both1Threshold { get; }
+		double Both2Threshold { get; }
 
 		IAdjustmentRules<TIndividual, TGroup, TVariables,
 			ISingleIteration<TIndividual, TGroup, TVariables>> AdjustmentRules { get; }
@@ -34,6 +39,8 @@ namespace EvoBio3.Core.Interfaces
 				ISingleIteration<TIndividual, TGroup, TVariables>> adjustmentRules = null,
 			bool isLoggingEnabled = false );
 
+		void ResetLists ( );
+		void CalculateThresholds ( );
 		void CreateInitialPopulation ( );
 		void Perish1 ( );
 		void Perish2 ( );

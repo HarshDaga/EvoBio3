@@ -16,6 +16,9 @@
 		int Generations { get; set; }
 		int Iterations { get; set; }
 		double Z { get; set; }
+		double Pr { get; set; }
+		double Pb1 { get; set; }
+		double Pb2 { get; set; }
 		bool IsConfidenceIntervalsRequested { get; set; }
 
 		IVariables Clone ( );

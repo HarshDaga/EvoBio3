@@ -7,8 +7,6 @@ namespace EvoBio3.Collections
 {
 	public class Individual : IndividualBase, IEquatable<Individual>
 	{
-		public double GeneticQuality;
-		public double PhenotypicQuality;
 		public double S;
 
 		public Individual ( ) : base ( default, default )

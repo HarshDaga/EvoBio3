@@ -11,9 +11,6 @@ namespace EvoBio3.Versions
 	public class SingleIterationBaseVersion :
 		SingleIterationBase<Individual, IndividualGroup, Population, Variables>
 	{
-		public int Step1PerishCount { get; protected set; }
-		public int Step2PerishCount { get; protected set; }
-
 		public SingleIterationBaseVersion ( )
 		{
 		}
@@ -36,6 +33,8 @@ namespace EvoBio3.Versions
 
 		public override void Perish1 ( )
 		{
+			AdjustmentRules.AdjustStep1 ( );
+
 			Step1PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
 			                                                    0, V.PopulationSize );
 
@@ -139,16 +138,15 @@ namespace EvoBio3.Versions
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\n\nReproduce:\n" );
-				foreach ( var pair in History
+				foreach ( var (parent, offspring) in History
 					.TakeLast ( V.PopulationSize )
 					.OrderBy ( x => x.parent.Type )
 					.ThenBy ( x => x.parent.Id )
 				)
-					Logger.Debug ( $"{pair.parent.PaddedName} => {pair.offspring}" );
+					Logger.Debug ( $"{parent.PaddedName} => {offspring}" );
 			}
 		}
 
-		// TODO: Verify
 		public override void CalculateHeritability ( )
 		{
 			if ( GenerationsPassed <= 2 )

@@ -19,6 +19,9 @@ namespace EvoBio3.Core.Collections
 		public int Generations { get; set; }
 		public int Iterations { get; set; }
 		public double Z { get; set; }
+		public double Pr { get; set; }
+		public double Pb1 { get; set; }
+		public double Pb2 { get; set; }
 		public bool IsConfidenceIntervalsRequested { get; set; }
 
 		[Pure]

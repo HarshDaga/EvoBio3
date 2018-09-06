@@ -32,7 +32,7 @@ namespace EvoBio3
 				"Covariance Phenotypic Quality",
 				"Reproduction",
 				"Variance Reproduction",
-				"Covariance Reproduction",
+				"Covariance Reproduction"
 			};
 
 			ci += "\n\n\nHeritability Confidence Intervals:\n\n";
