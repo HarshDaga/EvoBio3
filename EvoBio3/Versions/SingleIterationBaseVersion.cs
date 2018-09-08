@@ -3,6 +3,7 @@ using System.Linq;
 using EvoBio3.Collections;
 using EvoBio3.Core;
 using EvoBio3.Core.Enums;
+using EvoBio3.Core.Extensions;
 using EvoBio3.Core.Interfaces;
 using MathNet.Numerics.Statistics;
 
@@ -38,7 +39,7 @@ namespace EvoBio3.Versions
 			Step1PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
 			                                                    0, V.PopulationSize );
 
-			( Step1Rejects, _ ) = Population.ChooseBy ( Step1PerishCount, x => x.PhenotypicQuality );
+			( Step1Rejects, Step1Survivors ) = AllIndividuals.ChooseBy ( Step1PerishCount, x => x.PhenotypicQuality );
 			foreach ( var ind in Step1Rejects )
 				ind.Fecundity = 0;
 
@@ -59,7 +60,7 @@ namespace EvoBio3.Versions
 			Step2PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
 			                                                    0, V.PopulationSize - Step1PerishCount );
 
-			( Step2Rejects, _ ) = Population.ChooseBy ( Step2PerishCount, x => x.S );
+			( Step2Rejects, Step2Survivors ) = Step1Survivors.ChooseBy ( Step2PerishCount, x => x.S );
 			foreach ( var ind in Step2Rejects )
 				ind.Fecundity = 0;
 

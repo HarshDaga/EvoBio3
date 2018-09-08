@@ -43,33 +43,7 @@ namespace EvoBio3.Core.Collections
 		public (List<TIndividual> chosen, List<TIndividual> rejected) ChooseBy ( int amount,
 		                                                                         Func<TIndividual, double> selector )
 		{
-			var backup = AllIndividuals.ToList ( );
-			var cumulative = backup
-				.Select ( selector )
-				.CumulativeSum ( )
-				.ToList ( );
-			var total = cumulative.Last ( );
-
-			var chosenIndividuals = new List<TIndividual> ( amount );
-
-			for ( var i = 0; i < amount; i++ )
-			{
-				var target = Utility.NextDouble * total;
-				var index = cumulative.BinarySearch ( target );
-				if ( index < 0 )
-					index = Math.Min ( ~index, backup.Count - 1 );
-
-				var chosen = backup[index];
-				chosenIndividuals.Add ( chosen );
-				backup.RemoveAt ( index );
-				cumulative.RemoveAt ( index );
-
-				for ( var j = index; j < cumulative.Count; j++ )
-					cumulative[j] -= selector ( chosen );
-				total -= selector ( chosen );
-			}
-
-			return ( chosenIndividuals, backup );
+			return AllIndividuals.ChooseBy ( amount, selector );
 		}
 
 		public List<TIndividual> RepetitiveChooseBy ( int amount,

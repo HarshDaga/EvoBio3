@@ -20,6 +20,8 @@ namespace EvoBio3.Core.Interfaces
 		int Step2PerishCount { get; }
 		IList<TIndividual> Step1Rejects { get; }
 		IList<TIndividual> Step2Rejects { get; }
+		IList<TIndividual> Step1Survivors { get; }
+		IList<TIndividual> Step2Survivors { get; }
 		int TotalPerished { get; }
 		IHeritabilitySummary Heritability { get; }
 		Winner Winner { get; }

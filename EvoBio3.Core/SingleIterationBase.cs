@@ -52,6 +52,8 @@ namespace EvoBio3.Core
 		public int Step2PerishCount { get; protected set; }
 		public IList<TIndividual> Step1Rejects { get; protected set; }
 		public IList<TIndividual> Step2Rejects { get; protected set; }
+		public IList<TIndividual> Step1Survivors { get; protected set; }
+		public IList<TIndividual> Step2Survivors { get; protected set; }
 		public int TotalPerished => Step1PerishCount + Step2PerishCount;
 
 		public TGroup[] AllGroups
@@ -126,8 +128,10 @@ namespace EvoBio3.Core
 
 		public virtual void ResetLists ( )
 		{
-			Step1Rejects = new List<TIndividual> ( );
-			Step2Rejects = new List<TIndividual> ( );
+			Step1Rejects   = new List<TIndividual> ( );
+			Step2Rejects   = new List<TIndividual> ( );
+			Step1Survivors = new List<TIndividual> ( );
+			Step2Survivors = new List<TIndividual> ( );
 		}
 
 		public virtual void CalculateThresholds ( )
@@ -210,7 +214,7 @@ namespace EvoBio3.Core
 		public virtual void Run ( )
 		{
 			if ( IsLoggingEnabled )
-				Logger.Debug ( $"{GetType ( ).Name} {AdjustmentRules.GetType ( ).Name}" );
+				Logger.Debug ( $"{this}" );
 
 			CreateInitialPopulation ( );
 			AddGenerationHistory ( );
@@ -283,5 +287,8 @@ namespace EvoBio3.Core
 				Winner = Winner.Tie;
 			}
 		}
+
+		public override string ToString ( ) =>
+			$"{GetType ( ).Name} with {AdjustmentRules.GetType ( ).Name}";
 	}
 }
