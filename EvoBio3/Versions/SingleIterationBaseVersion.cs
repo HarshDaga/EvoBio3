@@ -39,6 +39,8 @@ namespace EvoBio3.Versions
 			                                                    0, V.PopulationSize );
 
 			( Step1Rejects, _ ) = Population.ChooseBy ( Step1PerishCount, x => x.PhenotypicQuality );
+			foreach ( var ind in Step1Rejects )
+				ind.Fecundity = 0;
 
 			if ( IsLoggingEnabled )
 			{
@@ -58,6 +60,8 @@ namespace EvoBio3.Versions
 			                                                    0, V.PopulationSize - Step1PerishCount );
 
 			( Step2Rejects, _ ) = Population.ChooseBy ( Step2PerishCount, x => x.S );
+			foreach ( var ind in Step2Rejects )
+				ind.Fecundity = 0;
 
 			if ( IsLoggingEnabled )
 			{
@@ -71,9 +75,6 @@ namespace EvoBio3.Versions
 
 		public override void CalculateFecundity ( )
 		{
-			foreach ( var ind in Step1Rejects.Concat ( Step2Rejects ) )
-				ind.Fecundity = 0;
-
 			AdjustmentRules.CalculateFecundity ( );
 			foreach ( var group in AllGroups )
 			{

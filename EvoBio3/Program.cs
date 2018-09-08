@@ -27,12 +27,12 @@ namespace EvoBio3
 				Qr   = 8, Qb1  = 8.5, Qb2 = 8.5, Qt = 8, Qu = 8,
 				Pr   = 10, Pb1 = 20, Pb2  = 20,
 
-				IsConfidenceIntervalsRequested = true
+				IsConfidenceIntervalsRequested = false
 			};
 
 			var timer = Stopwatch.StartNew ( );
 
-			var simulation = new Simulation<ConsiderAllGenerationsVersion, Version1Adjustments> ( v );
+			var simulation = new Simulation<SingleIterationBaseVersion, Version3Adjustments> ( v );
 			simulation.Run ( );
 			Console.WriteLine ( simulation );
 

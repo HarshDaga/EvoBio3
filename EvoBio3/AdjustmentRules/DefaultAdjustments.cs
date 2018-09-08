@@ -15,7 +15,14 @@ namespace EvoBio3.AdjustmentRules
 				return;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => x.PhenotypicQuality > V.Qt ) )
+			{
 				ind.S -= V.C1;
+				if ( IsLoggingEnabled )
+				{
+					Logger.Debug (
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qt,8:F4}; S ={ind.S,8:F4}" );
+				}
+			}
 		}
 
 		public override void AdjustBoth2Step2 ( )
@@ -24,7 +31,14 @@ namespace EvoBio3.AdjustmentRules
 				return;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => x.PhenotypicQuality > V.Qu ) )
+			{
 				ind.S -= V.C2;
+				if ( IsLoggingEnabled )
+				{
+					Logger.Debug (
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qu,8:F4}; S ={ind.S,8:F4}" );
+				}
+			}
 		}
 
 		public override void AdjustStep2 ( )
@@ -40,9 +54,25 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both1Group )
 				if ( ind.PhenotypicQuality <= V.Qb1 )
+				{
 					ind.Fecundity = 0;
+					if ( IsLoggingEnabled )
+					{
+						Logger.Debug (
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb1,8:F4};" +
+							$" Fecundity = {ind.Fecundity,8:F4}" );
+					}
+				}
 				else
+				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
+					if ( IsLoggingEnabled )
+					{
+						Logger.Debug (
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qb1,8:F4};" +
+							$" Fecundity = {ind.Fecundity,8:F4}" );
+					}
+				}
 		}
 
 		public override void CalculateBoth2Fecundity ( )
@@ -52,9 +82,25 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both2Group )
 				if ( ind.PhenotypicQuality <= V.Qb2 )
+				{
 					ind.Fecundity = 0;
+					if ( IsLoggingEnabled )
+					{
+						Logger.Debug (
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb2,8:F4};" +
+							$" Fecundity = {ind.Fecundity,8:F4}" );
+					}
+				}
 				else
+				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
+					if ( IsLoggingEnabled )
+					{
+						Logger.Debug (
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qb2,8:F4};" +
+							$" Fecundity = {ind.Fecundity,8:F4}" );
+					}
+				}
 		}
 
 		public override void CalculateResonationFecundity ( )
@@ -63,7 +109,15 @@ namespace EvoBio3.AdjustmentRules
 				return;
 
 			foreach ( var ind in Iteration.ResonationGroup.Where ( x => x.PhenotypicQuality <= V.Qr ) )
+			{
 				ind.Fecundity = 0;
+				if ( IsLoggingEnabled )
+				{
+					Logger.Debug (
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qr,8:F4};" +
+						$" Fecundity = {ind.Fecundity,8:F4}" );
+				}
+			}
 		}
 	}
 }

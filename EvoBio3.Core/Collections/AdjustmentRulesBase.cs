@@ -1,4 +1,5 @@
 ﻿using EvoBio3.Core.Interfaces;
+using NLog;
 
 namespace EvoBio3.Core.Collections
 {
@@ -9,8 +10,11 @@ namespace EvoBio3.Core.Collections
 		where TVariables : IVariables
 		where TIteration : class, ISingleIteration<TIndividual, TGroup, TVariables>
 	{
+		// ReSharper disable once StaticMemberInGenericType
+		protected static Logger Logger { get; set; } = LogManager.GetCurrentClassLogger ( );
 		public TIteration Iteration { get; set; }
 		public TVariables V => Iteration.V;
+		public bool IsLoggingEnabled => Iteration.IsLoggingEnabled;
 
 		protected AdjustmentRulesBase ( TIteration iteration )
 		{

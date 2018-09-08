@@ -126,16 +126,17 @@ namespace EvoBio3.Core
 
 		public virtual void ResetLists ( )
 		{
-			Step1Rejects?.Clear ( );
-			Step2Rejects?.Clear ( );
+			Step1Rejects = new List<TIndividual> ( );
+			Step2Rejects = new List<TIndividual> ( );
 		}
 
 		public virtual void CalculateThresholds ( )
 		{
 			var values = AllIndividuals
+				.Except ( Step1Rejects )
+				.Except ( Step2Rejects )
 				.Select ( x => x.PhenotypicQuality )
 				.OrderBy ( x => x )
-				.Skip ( TotalPerished )
 				.ToList ( );
 
 			ResonationThreshold = values.AtPercentage ( V.Pr );
@@ -154,6 +155,14 @@ namespace EvoBio3.Core
 		public virtual void CreateInitialPopulation ( )
 		{
 			Population.Init ( V );
+
+			if ( IsLoggingEnabled )
+			{
+				Logger.Debug ( "\n\nInitial Population:\n" );
+
+				foreach ( var individual in AllIndividuals )
+					Logger.Debug ( individual );
+			}
 		}
 
 		public abstract void Perish1 ( );
@@ -176,6 +185,17 @@ namespace EvoBio3.Core
 				[IndividualType.Null]       = 0
 			};
 
+			if ( IsLoggingEnabled )
+			{
+				Logger.Debug ( "\n\nChoose Parents And Reproduce\n" );
+				foreach ( var group in AllGroups.Where ( x => x.Any ( ) ) )
+				{
+					Logger.Debug ( $"{group.Type,-10}" +
+					               $" Mean Qg = {group.Average ( x => x.GeneticQuality ),8:F4}" +
+					               $" Mean Qp = {group.Average ( x => x.PhenotypicQuality ),8:F4}" );
+				}
+			}
+
 			Reproduce ( parents, offsprings, lastId );
 
 			AllIndividuals = offsprings;
@@ -189,6 +209,9 @@ namespace EvoBio3.Core
 
 		public virtual void Run ( )
 		{
+			if ( IsLoggingEnabled )
+				Logger.Debug ( $"{GetType ( ).Name} {AdjustmentRules.GetType ( ).Name}" );
+
 			CreateInitialPopulation ( );
 			AddGenerationHistory ( );
 			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )

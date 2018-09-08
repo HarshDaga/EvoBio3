@@ -2,40 +2,38 @@
 
 namespace EvoBio3.AdjustmentRules.Abstractions
 {
-	public abstract class ReservateAndAdjustOnPercentile : ReservateOnPercentile
+	public abstract class ReservateAndAdjustOnPercentile : AdjustOnPercentile
 	{
-		public override void CalculateBoth1Fecundity ( )
+		public override void AdjustBoth1Step2 ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count >= V.PiD )
 				return;
 
-			foreach ( var ind in Iteration.Both1Group )
-				if ( ind.PhenotypicQuality > Iteration.Both1Threshold )
-					ind.Fecundity = 0;
-				else
-					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
+			foreach ( var ind in Iteration.Both1Group.Where ( x => x.PhenotypicQuality > Iteration.Both1Threshold ) )
+			{
+				ind.S -= V.C1;
+				if ( IsLoggingEnabled )
+				{
+					Logger.Debug (
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1Threshold,8:F4}; S ={ind.S,8:F4}" );
+				}
+			}
 		}
 
-		public override void CalculateBoth2Fecundity ( )
+		public override void AdjustBoth2Step2 ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count >= V.PiD )
 				return;
 
-			foreach ( var ind in Iteration.Both2Group )
-				if ( ind.PhenotypicQuality > Iteration.Both2Threshold )
-					ind.Fecundity = 0;
-				else
-					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
-		}
-
-		public override void CalculateResonationFecundity ( )
-		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
-				return;
-
-			foreach ( var ind in Iteration.ResonationGroup.Where (
-				x => x.PhenotypicQuality > Iteration.ResonationThreshold ) )
-				ind.Fecundity = 0;
+			foreach ( var ind in Iteration.Both2Group.Where ( x => x.PhenotypicQuality > Iteration.Both2Threshold ) )
+			{
+				ind.S -= V.C2;
+				if ( IsLoggingEnabled )
+				{
+					Logger.Debug (
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2Threshold,8:F4}; S ={ind.S,8:F4}" );
+				}
+			}
 		}
 	}
 }
