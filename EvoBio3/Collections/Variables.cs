@@ -17,8 +17,6 @@ namespace EvoBio3.Collections
 		public double Qb2 { get; set; }
 		public double Qt { get; set; }
 		public double Qu { get; set; }
-		public double B1 { get; set; }
-		public double B2 { get; set; }
 
 		public override string ToString ( ) =>
 			$"{base.ToString ( )}\n" +

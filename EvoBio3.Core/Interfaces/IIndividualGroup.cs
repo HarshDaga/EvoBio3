@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EvoBio3.Core.Enums;
 
 namespace EvoBio3.Core.Interfaces
@@ -16,5 +17,7 @@ namespace EvoBio3.Core.Interfaces
 		double CalculateLostFecundity ( );
 		double CalculateTotalFecundity ( );
 		void RebuildFromAll ( IEnumerable<TIndividual> allIndividuals );
+		string ToTable ( );
+		string ToTable ( Func<TIndividual, object> selector );
 	}
 }

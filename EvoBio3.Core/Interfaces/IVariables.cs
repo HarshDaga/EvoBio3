@@ -16,6 +16,8 @@
 		int Generations { get; set; }
 		int Iterations { get; set; }
 		double Z { get; set; }
+		double B1 { get; set; }
+		double B2 { get; set; }
 		double Pr { get; set; }
 		double Pb1 { get; set; }
 		double Pb2 { get; set; }

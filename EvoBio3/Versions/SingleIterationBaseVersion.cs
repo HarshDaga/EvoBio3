@@ -48,13 +48,25 @@ namespace EvoBio3.Versions
 				Logger.Debug ( "\n\nPerish 1:\n" );
 				Logger.Debug ( $"Amount to perish = {Step1PerishCount}" );
 				Logger.Debug ( "Perished Individuals:" );
-				foreach ( var individual in Step1Rejects.OrderBy ( x => x.Type ).ThenBy ( x => x.Id ) )
-					Logger.Debug ( individual );
+				Logger.Debug ( Step1Rejects
+					               .OrderBy ( x => x.Type )
+					               .ThenBy ( x => x.Id )
+					               .ToTable ( x => new
+						               {
+							               _Type = x.Type,
+							               x.Id,
+							               Qp = $"{x.PhenotypicQuality:F4}"
+						               }
+					               )
+				);
 			}
 		}
 
 		public override void Perish2 ( )
 		{
+			if ( IsLoggingEnabled )
+				Logger.Debug ( "\n\nPerish 2:\n" );
+
 			AdjustmentRules.AdjustStep2 ( );
 
 			Step2PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
@@ -66,28 +78,34 @@ namespace EvoBio3.Versions
 
 			if ( IsLoggingEnabled )
 			{
-				Logger.Debug ( "\n\nPerish 2:\n" );
+				Logger.Debug ( "\n" );
 				Logger.Debug ( $"Amount to perish = {Step2PerishCount}" );
 				Logger.Debug ( "Perished Individuals:" );
-				foreach ( var individual in Step2Rejects.OrderBy ( x => x.Type ).ThenBy ( x => x.Id ) )
-					Logger.Debug ( individual );
+				Logger.Debug ( Step2Rejects
+					               .OrderBy ( x => x.Type )
+					               .ThenBy ( x => x.Id )
+					               .ToTable ( x => new
+						               {
+							               _Type = x.Type,
+							               x.Id,
+							               Qp = $"{x.PhenotypicQuality:F4}",
+							               S  = $"{x.S:F4}"
+						               }
+					               )
+				);
 			}
 		}
 
 		public override void CalculateFecundity ( )
 		{
+			if ( IsLoggingEnabled )
+				Logger.Debug ( "\n\nCalculate Fecundity:\n" );
+
 			AdjustmentRules.CalculateFecundity ( );
 			foreach ( var group in AllGroups )
 			{
 				group.CalculateTotalFecundity ( );
 				group.CalculateLostFecundity ( );
-			}
-
-			if ( IsLoggingEnabled )
-			{
-				Logger.Debug ( "\n\nCalculate Fecundity:\n" );
-				foreach ( var individual in AllIndividuals.OrderBy ( x => x.Type ).ThenBy ( x => x.Id ) )
-					Logger.Debug ( $"{individual} Fecundity = {individual.Fecundity,8:F4}" );
 			}
 		}
 
@@ -108,8 +126,17 @@ namespace EvoBio3.Versions
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\n\nCalculate Adjusted Fecundity:\n" );
-				foreach ( var individual in AllIndividuals.OrderBy ( x => x.Type ).ThenBy ( x => x.Id ) )
-					Logger.Debug ( individual.ToDetailedString ( ) );
+				foreach ( var group in AllGroups )
+					Logger.Debug ( group.ToTable (
+						               x => new
+						               {
+							               _1_Id                = x.Id,
+							               _2_Qp                = $"{x.PhenotypicQuality:F4}",
+							               _3_Fecundity         = $"{x.Fecundity:F4}",
+							               _4_AdjustedFecundity = $"{x.AdjustedFecundity:F4}"
+						               }
+					               )
+					);
 			}
 		}
 
@@ -140,12 +167,19 @@ namespace EvoBio3.Versions
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\n\nReproduce:\n" );
-				foreach ( var (parent, offspring) in History
+				var table = History
 					.TakeLast ( V.PopulationSize )
 					.OrderBy ( x => x.parent.Type )
 					.ThenBy ( x => x.parent.Id )
-				)
-					Logger.Debug ( $"{parent.PaddedName} => {offspring}" );
+					.ToTable ( x => new
+						{
+							_1_Parent    = x.parent.Name,
+							_2_Offspring = x.offspring.Name,
+							_3_Qg        = $"{x.offspring.GeneticQuality:F4}",
+							_4_Qp        = $"{x.offspring.PhenotypicQuality:F4}"
+						}
+					);
+				Logger.Debug ( table );
 			}
 		}
 

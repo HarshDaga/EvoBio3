@@ -19,21 +19,17 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
-					{
 						Logger.Debug (
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.Both1Threshold,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
-					}
 				}
 				else
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
-					{
 						Logger.Debug (
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1Threshold,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
-					}
 				}
 		}
 
@@ -47,21 +43,17 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
-					{
 						Logger.Debug (
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.Both2Threshold,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
-					}
 				}
 				else
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
-					{
 						Logger.Debug (
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2Threshold,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
-					}
 				}
 		}
 
@@ -75,11 +67,9 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 			{
 				ind.Fecundity = 0;
 				if ( IsLoggingEnabled )
-				{
 					Logger.Debug (
 						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.ResonationThreshold,8:F4};" +
 						$" Fecundity = {ind.Fecundity,8:F4}" );
-				}
 			}
 		}
 	}

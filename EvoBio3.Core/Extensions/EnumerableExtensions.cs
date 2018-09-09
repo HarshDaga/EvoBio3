@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Tababular;
 
 namespace EvoBio3.Core.Extensions
 {
@@ -49,6 +50,16 @@ namespace EvoBio3.Core.Extensions
 				sum += item;
 				yield return sum;
 			}
+		}
+
+		public static string ToTable<T> ( this IEnumerable<T> enumerable,
+		                                  Func<T, object> selector,
+		                                  int maxWidth = 80 )
+		{
+			var hints = new Hints {MaxTableWidth = maxWidth};
+			var formatter = new TableFormatter ( hints );
+
+			return formatter.FormatObjects ( enumerable.Select ( selector ) );
 		}
 	}
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EvoBio3.Core.Enums;
+using EvoBio3.Core.Extensions;
 using EvoBio3.Core.Interfaces;
 
 namespace EvoBio3.Core.Collections
@@ -32,6 +34,24 @@ namespace EvoBio3.Core.Collections
 			TotalFecundity = Individuals.Sum ( x => x.Fecundity );
 
 		public abstract double CalculateLostFecundity ( );
+
+		public string ToTable ( )
+		{
+			return ToTable ( x => new
+				{
+					x.Id,
+					Qg = $"{x.GeneticQuality:F4}",
+					Qp = $"{x.PhenotypicQuality:F4}"
+				}
+			);
+		}
+
+		public string ToTable ( Func<TIndividual, object> selector )
+		{
+			var table = Individuals.ToTable ( selector );
+
+			return $"{Type}\n{table}";
+		}
 
 		public IEnumerator<TIndividual> GetEnumerator ( ) => Individuals.GetEnumerator ( );
 

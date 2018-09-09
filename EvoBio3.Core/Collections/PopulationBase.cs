@@ -41,10 +41,8 @@ namespace EvoBio3.Core.Collections
 		}
 
 		public (List<TIndividual> chosen, List<TIndividual> rejected) ChooseBy ( int amount,
-		                                                                         Func<TIndividual, double> selector )
-		{
-			return AllIndividuals.ChooseBy ( amount, selector );
-		}
+		                                                                         Func<TIndividual, double> selector ) =>
+			AllIndividuals.ChooseBy ( amount, selector );
 
 		public List<TIndividual> RepetitiveChooseBy ( int amount,
 		                                              Func<TIndividual, double> selector )

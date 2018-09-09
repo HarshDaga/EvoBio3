@@ -14,6 +14,7 @@
     <PackageReference Include="NLog.Config" Version="4.5.9" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.2.1" />
     <PackageReference Include="ShellProgressBar" Version="4.2.0" />
+    <PackageReference Include="Tababular" Version="3.0.0-b02" />
   </ItemGroup>
 
   <ItemGroup>

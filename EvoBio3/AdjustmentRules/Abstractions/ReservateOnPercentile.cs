@@ -14,14 +14,13 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 			if ( Iteration.Step1Rejects.Count >= V.PiD )
 				return;
 
-			foreach ( var ind in Iteration.Both1Group.Where ( x => x.PhenotypicQuality > Iteration.Both1Threshold ) )
+			foreach ( var ind in Iteration.Both1Group.Where (
+				x => x.PhenotypicQuality > Iteration.Both1ReservationThreshold ) )
 			{
 				ind.S -= V.C1;
 				if ( IsLoggingEnabled )
-				{
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1Threshold,8:F4}; S ={ind.S,8:F4}" );
-				}
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1ReservationThreshold,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 
@@ -30,14 +29,13 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 			if ( Iteration.Step1Rejects.Count >= V.PiD )
 				return;
 
-			foreach ( var ind in Iteration.Both2Group.Where ( x => x.PhenotypicQuality > Iteration.Both2Threshold ) )
+			foreach ( var ind in Iteration.Both2Group.Where (
+				x => x.PhenotypicQuality > Iteration.Both2ReservationThreshold ) )
 			{
 				ind.S -= V.C2;
 				if ( IsLoggingEnabled )
-				{
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2Threshold,8:F4}; S ={ind.S,8:F4}" );
-				}
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2ReservationThreshold,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 	}

@@ -70,6 +70,8 @@ namespace EvoBio3.Core
 
 		public double PerishedPercent { get; protected set; }
 		public int GenerationsPassed { get; protected set; }
+		public double Both1ReservationThreshold { get; protected set; }
+		public double Both2ReservationThreshold { get; protected set; }
 		public double ResonationThreshold { get; protected set; }
 		public double Both1Threshold { get; protected set; }
 		public double Both2Threshold { get; protected set; }
@@ -143,13 +145,17 @@ namespace EvoBio3.Core
 				.OrderBy ( x => x )
 				.ToList ( );
 
-			ResonationThreshold = values.AtPercentage ( V.Pr );
-			Both1Threshold      = values.AtPercentage ( V.Pb1 );
-			Both2Threshold      = values.AtPercentage ( V.Pb2 );
+			Both1ReservationThreshold = values.AtPercentage ( V.B1 );
+			Both2ReservationThreshold = values.AtPercentage ( V.B2 );
+			ResonationThreshold       = values.AtPercentage ( V.Pr );
+			Both1Threshold            = values.AtPercentage ( V.Pb1 );
+			Both2Threshold            = values.AtPercentage ( V.Pb2 );
 
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\nCalculate Thresholds:\n" );
+				Logger.Debug ( $"Both1 Reservation Threshold      @ {V.B1 / 100:P} = {Both1ReservationThreshold:F4}" );
+				Logger.Debug ( $"Both2 Reservation Threshold      @ {V.B2 / 100:P} = {Both2ReservationThreshold:F4}" );
 				Logger.Debug ( $"Resonation Threshold @ {V.Pr / 100:P} = {ResonationThreshold:F4}" );
 				Logger.Debug ( $"Both1 Threshold      @ {V.Pb1 / 100:P} = {Both1Threshold:F4}" );
 				Logger.Debug ( $"Both2 Threshold      @ {V.Pb2 / 100:P} = {Both2Threshold:F4}" );
@@ -164,8 +170,8 @@ namespace EvoBio3.Core
 			{
 				Logger.Debug ( "\n\nInitial Population:\n" );
 
-				foreach ( var individual in AllIndividuals )
-					Logger.Debug ( individual );
+				foreach ( var group in AllGroups )
+					Logger.Debug ( group.ToTable ( ) );
 			}
 		}
 
@@ -193,11 +199,9 @@ namespace EvoBio3.Core
 			{
 				Logger.Debug ( "\n\nChoose Parents And Reproduce\n" );
 				foreach ( var group in AllGroups.Where ( x => x.Any ( ) ) )
-				{
 					Logger.Debug ( $"{group.Type,-10}" +
 					               $" Mean Qg = {group.Average ( x => x.GeneticQuality ),8:F4}" +
 					               $" Mean Qp = {group.Average ( x => x.PhenotypicQuality ),8:F4}" );
-				}
 			}
 
 			Reproduce ( parents, offsprings, lastId );

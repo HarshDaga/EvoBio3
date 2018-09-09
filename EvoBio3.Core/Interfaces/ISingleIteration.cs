@@ -26,6 +26,8 @@ namespace EvoBio3.Core.Interfaces
 		IHeritabilitySummary Heritability { get; }
 		Winner Winner { get; }
 		int GenerationsPassed { get; }
+		double Both1ReservationThreshold { get; }
+		double Both2ReservationThreshold { get; }
 		double ResonationThreshold { get; }
 		double Both1Threshold { get; }
 		double Both2Threshold { get; }
