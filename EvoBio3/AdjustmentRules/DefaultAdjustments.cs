@@ -57,7 +57,7 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth1Fecundity ( )
 		{
-			foreach ( var ind in Iteration.Both1Group )
+			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
 				if ( ind.PhenotypicQuality <= V.Qb1 )
 				{
 					ind.Fecundity = 0;
@@ -66,7 +66,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb1,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else
+				else if ( ind.PhenotypicQuality > V.Qt && Iteration.Step1Rejects.Count >= V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
@@ -78,7 +78,7 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			foreach ( var ind in Iteration.Both2Group )
+			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
 				if ( ind.PhenotypicQuality <= V.Qb2 )
 				{
 					ind.Fecundity = 0;
@@ -87,7 +87,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb2,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else
+				else if ( ind.PhenotypicQuality > V.Qu && Iteration.Step1Rejects.Count >= V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
@@ -99,7 +99,7 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateResonationFecundity ( )
 		{
-			foreach ( var ind in Iteration.ResonationGroup.Where ( x => x.PhenotypicQuality <= V.Qr ) )
+			foreach ( var ind in Iteration.ResonationGroup.Where ( x => !x.IsPerished && x.PhenotypicQuality <= V.Qr ) )
 			{
 				ind.Fecundity = 0;
 				if ( IsLoggingEnabled )

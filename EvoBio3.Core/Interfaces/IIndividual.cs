@@ -15,6 +15,9 @@ namespace EvoBio3.Core.Interfaces
 		double Fecundity { get; set; }
 		string Name { get; }
 		string PaddedName { get; }
+		bool IsPerished { get; }
+
+		void Perish ( );
 
 		bool Equals ( object obj );
 		int GetHashCode ( );

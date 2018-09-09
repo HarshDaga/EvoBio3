@@ -18,12 +18,19 @@ namespace EvoBio3.Core.Collections
 
 		public string Name => $"{Type}_{Id}";
 		public string PaddedName => $"{Name,-15}";
+		public bool IsPerished { get; set; }
 
 		protected IndividualBase ( IndividualType type,
 		                           int id )
 		{
 			Type = type;
 			Id   = id;
+		}
+
+		public void Perish ( )
+		{
+			IsPerished = true;
+			Fecundity = 0;
 		}
 
 		bool IEquatable<IndividualBase>.Equals ( IndividualBase other ) => Equals ( other );

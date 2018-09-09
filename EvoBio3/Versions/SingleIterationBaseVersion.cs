@@ -41,7 +41,7 @@ namespace EvoBio3.Versions
 
 			( Step1Rejects, Step1Survivors ) = AllIndividuals.ChooseBy ( Step1PerishCount, x => x.PhenotypicQuality );
 			foreach ( var ind in Step1Rejects )
-				ind.Fecundity = 0;
+				ind.Perish ( );
 
 			if ( IsLoggingEnabled )
 			{
@@ -74,7 +74,7 @@ namespace EvoBio3.Versions
 
 			( Step2Rejects, Step2Survivors ) = Step1Survivors.ChooseBy ( Step2PerishCount, x => x.S );
 			foreach ( var ind in Step2Rejects )
-				ind.Fecundity = 0;
+				ind.Perish ( );
 
 			if ( IsLoggingEnabled )
 			{
