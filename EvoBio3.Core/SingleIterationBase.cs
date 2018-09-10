@@ -198,8 +198,8 @@ namespace EvoBio3.Core
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\n\nChoose Parents And Reproduce\n" );
-				foreach ( var group in AllGroups.Where ( x => x.Any ( ) ) )
-					Logger.Debug ( $"{group.Type,-10}" +
+				foreach ( var group in parents.GroupBy ( x => x.Type ).Where ( x => x.Any ( ) ) )
+					Logger.Debug ( $"{group.Key,-10}" +
 					               $" Mean Qg = {group.Average ( x => x.GeneticQuality ),8:F4}" +
 					               $" Mean Qp = {group.Average ( x => x.PhenotypicQuality ),8:F4}" );
 			}
