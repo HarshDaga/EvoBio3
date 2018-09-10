@@ -67,6 +67,9 @@ namespace EvoBio3.Versions
 			if ( IsLoggingEnabled )
 				Logger.Debug ( "\n\nPerish 2:\n" );
 
+			if ( Step1PerishCount >= V.PopulationSize )
+				return;
+
 			AdjustmentRules.AdjustStep2 ( );
 
 			Step2PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
