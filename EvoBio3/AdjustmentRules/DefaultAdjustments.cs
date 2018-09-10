@@ -66,7 +66,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb1,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qt && Iteration.Step1Rejects.Count >= V.PiD )
+				else if ( ind.PhenotypicQuality > V.Qt && Iteration.Step1Rejects.Count < V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
@@ -87,7 +87,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb2,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qu && Iteration.Step1Rejects.Count >= V.PiD )
+				else if ( ind.PhenotypicQuality > V.Qu && Iteration.Step1Rejects.Count < V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )

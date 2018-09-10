@@ -36,7 +36,7 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > Iteration.Both1ReservationThreshold &&
-				          Iteration.Step1Rejects.Count >= V.PiD )
+				          Iteration.Step1Rejects.Count < V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
@@ -61,7 +61,7 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > Iteration.Both2ReservationThreshold &&
-				          Iteration.Step1Rejects.Count >= V.PiD )
+				          Iteration.Step1Rejects.Count < V.PiD )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
