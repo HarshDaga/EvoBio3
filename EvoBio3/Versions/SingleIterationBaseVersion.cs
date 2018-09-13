@@ -75,7 +75,9 @@ namespace EvoBio3.Versions
 			Step2PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
 			                                                    0, V.PopulationSize - Step1PerishCount );
 
-			( Step2Rejects, Step2Survivors ) = Step1Survivors.ChooseBy ( Step2PerishCount, x => x.S );
+			var step2SurvivorsCount = Step1Survivors.Count - Step2PerishCount;
+
+			( Step2Survivors, Step2Rejects ) = Step1Survivors.ChooseBy ( step2SurvivorsCount, x => x.S );
 			foreach ( var ind in Step2Rejects )
 				ind.Perish ( );
 

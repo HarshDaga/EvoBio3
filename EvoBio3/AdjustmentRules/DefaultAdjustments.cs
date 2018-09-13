@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using EvoBio3.Collections;
 using EvoBio3.Core.Collections;
 using EvoBio3.Core.Interfaces;
@@ -16,7 +17,7 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => x.PhenotypicQuality > V.Qt ) )
 			{
-				ind.S -= V.C1;
+				ind.S = Math.Max ( 0, ind.PhenotypicQuality - V.C1 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
 						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qt,8:F4}; S ={ind.S,8:F4}" );
@@ -30,7 +31,7 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => x.PhenotypicQuality > V.Qu ) )
 			{
-				ind.S -= V.C2;
+				ind.S = Math.Max ( 0, ind.PhenotypicQuality - V.C2 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
 						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qu,8:F4}; S ={ind.S,8:F4}" );
