@@ -63,8 +63,8 @@ namespace EvoBio3.Core
 
 			var generations = V.Generations;
 			var iterations = V.Iterations;
-			V.Generations = 2;
-			V.Iterations  = 1;
+			V.Generations = 5;
+			V.Iterations  = 5;
 
 			var iteration = new TIteration ( );
 			iteration.Init ( V, adjustmentRules, true );
