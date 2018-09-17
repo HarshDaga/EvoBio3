@@ -23,20 +23,15 @@ namespace EvoBio3.Core
 
 		[DebuggerStepThrough]
 		public static double NextGaussian ( double mean,
-		                                    double sd )
-		{
-			var normalDist = Normal.WithMeanStdDev ( mean, sd );
-			var randomGaussianValue = normalDist.Sample ( );
-			return randomGaussianValue;
-		}
+		                                    double sd ) =>
+			Normal.Sample ( mean, sd );
 
 		[DebuggerStepThrough]
 		public static double NextGaussianNonNegative ( double mean,
 		                                               double sd )
 		{
-			var normalDist = Normal.WithMeanStdDev ( mean, sd );
-			var randomGaussianValue = normalDist.Sample ( );
-			return randomGaussianValue < 0 ? 0 : randomGaussianValue;
+			var randomGaussianValue = Normal.Sample ( mean, sd );
+			return Max ( 0, randomGaussianValue );
 		}
 
 		[DebuggerStepThrough]
@@ -45,8 +40,7 @@ namespace EvoBio3.Core
 		                                           double min,
 		                                           double max )
 		{
-			var normalDist = Normal.WithMeanStdDev ( mean, sd );
-			var randomGaussianValue = normalDist.Sample ( );
+			var randomGaussianValue = Normal.Sample ( mean, sd );
 			return Max ( Min ( randomGaussianValue, max ), min );
 		}
 
@@ -56,8 +50,7 @@ namespace EvoBio3.Core
 		                                           double min,
 		                                           double max )
 		{
-			var normalDist = Normal.WithMeanStdDev ( mean, sd );
-			var randomGaussianValue = normalDist.Sample ( );
+			var randomGaussianValue = Normal.Sample ( mean, sd );
 			var result = Max ( Min ( randomGaussianValue, max ), min );
 
 			return (int) Round ( result );
@@ -89,9 +82,8 @@ namespace EvoBio3.Core
 		                                                        double sd,
 		                                                        int n )
 		{
-			var normalDist = new Normal ( mean, sd );
 			var samples = new double[n];
-			normalDist.Samples ( samples );
+			Normal.Samples ( samples, mean, sd );
 			for ( var i = 0; i < n; i++ )
 				if ( samples[i] < 0 )
 					samples[i] = 0;
