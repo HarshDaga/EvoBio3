@@ -120,7 +120,7 @@ namespace EvoBio3.Versions
 		{
 			var lostFecunditySum = AllGroups.Sum ( x => x.LostFecundity );
 			var totalFecunditySum = AllGroups.Sum ( x => x.TotalFecundity );
-			foreach ( var group in AllGroups )
+			foreach ( var group in AllGroups.Where ( x => x.TotalFecundity != 0 ) )
 			{
 				var term2 = ( 1d - V.R ) * V.Y * lostFecunditySum / totalFecunditySum;
 				var term1 = V.R * V.Y * group.LostFecundity / group.TotalFecundity;
