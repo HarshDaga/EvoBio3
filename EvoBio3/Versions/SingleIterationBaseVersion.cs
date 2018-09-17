@@ -37,7 +37,7 @@ namespace EvoBio3.Versions
 			AdjustmentRules.AdjustStep1 ( );
 
 			Step1PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
-			                                                    0, V.PopulationSize );
+			                                                    0, V.PopulationSize - 1 );
 
 			var survivorsCount = AllIndividuals.Count - Step1PerishCount;
 
@@ -75,7 +75,7 @@ namespace EvoBio3.Versions
 			AdjustmentRules.AdjustStep2 ( );
 
 			Step2PerishCount = Utility.NextGaussianIntInRange ( V.MeanPerishStep1, V.SdPerishStep1,
-			                                                    0, V.PopulationSize - Step1PerishCount );
+			                                                    0, Step1Survivors.Count - 1 );
 
 			var step2SurvivorsCount = Step1Survivors.Count - Step2PerishCount;
 
