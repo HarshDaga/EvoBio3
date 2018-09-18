@@ -39,5 +39,8 @@ namespace EvoBio3.Collections
 
 			return LostFecundity = TotalPhenoQuality - TotalFecundity;
 		}
+
+		public override string ToString ( ) =>
+			$"{Type}, {Count}, {nameof ( TotalPhenoQuality )}: {TotalPhenoQuality,8:F4}, {nameof ( TotalFecundity )}: {TotalFecundity,8:F4}";
 	}
 }

@@ -56,5 +56,8 @@ namespace EvoBio3.Core.Collections
 		public IEnumerator<TIndividual> GetEnumerator ( ) => Individuals.GetEnumerator ( );
 
 		IEnumerator IEnumerable.GetEnumerator ( ) => ( (IEnumerable) Individuals ).GetEnumerator ( );
+
+		public override string ToString ( ) =>
+			$"{Type}, {Count}, {nameof ( TotalFecundity )}: {TotalFecundity,8:F4}";
 	}
 }
