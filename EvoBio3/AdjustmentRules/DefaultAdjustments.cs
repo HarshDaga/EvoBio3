@@ -46,7 +46,7 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateFecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count >= V.PiC )
 			{
 				if ( IsLoggingEnabled )
 					Logger.Debug ( $"{Iteration.Step1Rejects.Count} + {Iteration.Step2Rejects.Count} > {V.PiC}" );
