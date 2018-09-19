@@ -9,21 +9,9 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 		AdjustmentRulesBase<Individual, IndividualGroup, Variables,
 			ISingleIteration<Individual, IndividualGroup, Variables>>
 	{
-		public override void CalculateFecundity ( )
-		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
-			{
-				if ( IsLoggingEnabled )
-					Logger.Debug ( $"{Iteration.Step1Rejects.Count} + {Iteration.Step2Rejects.Count} > {V.PiC}" );
-				return;
-			}
-
-			base.CalculateFecundity ( );
-		}
-
 		public override void CalculateBoth1Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB1 )
 				return;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
@@ -48,7 +36,7 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB2 )
 				return;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
@@ -73,7 +61,7 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 
 		public override void CalculateResonationFecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCR )
 				return;
 
 			foreach ( var ind in Iteration.ResonationGroup.Where (

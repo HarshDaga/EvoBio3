@@ -44,20 +44,11 @@ namespace EvoBio3.AdjustmentRules
 			AdjustBoth2Step2 ( );
 		}
 
-		public override void CalculateFecundity ( )
-		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiC )
-			{
-				if ( IsLoggingEnabled )
-					Logger.Debug ( $"{Iteration.Step1Rejects.Count} + {Iteration.Step2Rejects.Count} > {V.PiC}" );
-				return;
-			}
-
-			base.CalculateFecundity ( );
-		}
-
 		public override void CalculateBoth1Fecundity ( )
 		{
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB1 )
+				return;
+
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
 				if ( ind.PhenotypicQuality <= V.Qb1 )
 				{
@@ -79,6 +70,9 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth2Fecundity ( )
 		{
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB2 )
+				return;
+
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
 				if ( ind.PhenotypicQuality <= V.Qb2 )
 				{
@@ -100,6 +94,9 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateResonationFecundity ( )
 		{
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCR )
+				return;
+
 			foreach ( var ind in Iteration.ResonationGroup.Where ( x => !x.IsPerished && x.PhenotypicQuality <= V.Qr ) )
 			{
 				ind.Fecundity = 0;
