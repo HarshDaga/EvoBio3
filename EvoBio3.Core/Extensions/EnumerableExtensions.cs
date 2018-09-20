@@ -44,7 +44,18 @@ namespace EvoBio3.Core.Extensions
 		[DebuggerStepThrough]
 		public static IEnumerable<double> CumulativeSum ( this IEnumerable<double> sequence )
 		{
-			double sum = 0;
+			var sum = 0d;
+			foreach ( var item in sequence )
+			{
+				sum += item;
+				yield return sum;
+			}
+		}
+
+		[DebuggerStepThrough]
+		public static IEnumerable<int> CumulativeSum ( this IEnumerable<int> sequence )
+		{
+			var sum = 0;
 			foreach ( var item in sequence )
 			{
 				sum += item;

@@ -17,7 +17,7 @@ namespace EvoBio3
 				Both1Quantity   = 0, Both2Quantity    = 0, ResonationQuantity = 100, NullQuantity = 100,
 				Generations     = 250, Iterations     = 10000,
 				SdGenetic       = 1, SdPheno          = 0,
-				MeanPerishStep1 = 50.0, SdPerishStep1 = 50.0,
+				MeanPerishStep1 = 150.0, SdPerishStep1 = 50.0,
 				MeanPerishStep2 = 0, SdPerishStep2    = 0,
 
 				C1   = 0, C2    = 0,
@@ -32,7 +32,7 @@ namespace EvoBio3
 
 			var timer = Stopwatch.StartNew ( );
 
-			var simulation = new Simulation<SingleIterationBaseVersion, Version3Adjustments> ( v );
+			var simulation = new Simulation<AllowAllPerishVersion, Version3Adjustments> ( v );
 			simulation.Run ( );
 			Console.WriteLine ( simulation );
 

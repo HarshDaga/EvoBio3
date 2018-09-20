@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using EvoBio3.Core.Collections;
 using EvoBio3.Core.Enums;
+using EvoBio3.Core.Extensions;
 using EvoBio3.Core.Interfaces;
 using MathNet.Numerics.Statistics;
+using MoreLinq;
 using ShellProgressBar;
 
 namespace EvoBio3.Core
@@ -125,9 +127,15 @@ namespace EvoBio3.Core
 
 			var max = GenerationsCount.Values.Max ( );
 			result += "\nGenerations Count:\n";
+			var count = GenerationsCount.Values
+				.CumulativeSum ( )
+				.ToList ( )
+				.TakeUntil ( x => x >= V.Iterations )
+				.Count ( );
 			result += string.Join (
 				"\n",
 				GenerationsCount
+					.Take ( count )
 					.Select ( pair => $"{pair.Key,-3} {pair.Value,-5} " +
 					                  $"{new string ( '█', pair.Value * 100 / max )}" ) );
 
