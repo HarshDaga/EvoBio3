@@ -34,7 +34,22 @@ namespace EvoBio3.Core.Extensions
 
 		[Pure]
 		public static T AtPercentage<T> ( this IList<T> list,
-		                                  double percentage ) =>
-			list[(int) Math.Round ( ( list.Count - 1d ) * percentage / 100d )];
+		                                  double percentage )
+		{
+			var index = (int) Math.Round ( ( list.Count - 1d ) * percentage / 100d );
+			return list[index];
+		}
+
+		[Pure]
+		public static T AtPercentage<T> ( this IList<T> list,
+		                                  double percentage,
+		                                  T @default )
+		{
+			if ( percentage < 0 )
+				return @default;
+
+			var index = (int) Math.Round ( ( list.Count - 1d ) * percentage / 100d );
+			return list[index];
+		}
 	}
 }

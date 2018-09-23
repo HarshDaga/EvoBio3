@@ -147,9 +147,9 @@ namespace EvoBio3.Core
 
 			Both1ReservationThreshold = values.AtPercentage ( V.B1 );
 			Both2ReservationThreshold = values.AtPercentage ( V.B2 );
-			ResonationThreshold       = values.AtPercentage ( V.Pr );
-			Both1Threshold            = values.AtPercentage ( V.Pb1 );
-			Both2Threshold            = values.AtPercentage ( V.Pb2 );
+			ResonationThreshold       = values.AtPercentage ( V.Pr, 0 );
+			Both1Threshold            = values.AtPercentage ( V.Pb1, 0 );
+			Both2Threshold            = values.AtPercentage ( V.Pb2, 0 );
 
 			if ( IsLoggingEnabled )
 			{
