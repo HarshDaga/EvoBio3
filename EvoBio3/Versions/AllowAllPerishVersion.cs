@@ -129,7 +129,9 @@ namespace EvoBio3.Versions
 				}
 			}
 
-			AfterLastGeneration ( );
+			if ( V.ConsiderAllGenerations )
+				for ( var i = GenerationsPassed; i < V.Generations; i++ )
+					AddGenerationHistory ( );
 
 			CalculateHeritability ( );
 			CalculateWinner ( );

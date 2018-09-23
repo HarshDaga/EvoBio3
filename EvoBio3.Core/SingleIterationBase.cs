@@ -239,17 +239,15 @@ namespace EvoBio3.Core
 				}
 			}
 
-			AfterLastGeneration ( );
+			if ( V.ConsiderAllGenerations )
+				for ( var i = GenerationsPassed; i < V.Generations; i++ )
+					AddGenerationHistory ( );
 
 			CalculateHeritability ( );
 			CalculateWinner ( );
 
 			if ( IsLoggingEnabled )
 				Logger.Debug ( $"\n\nWinner: {Winner}" );
-		}
-
-		public virtual void AfterLastGeneration ( )
-		{
 		}
 
 		protected void AddGenerationHistory ( )

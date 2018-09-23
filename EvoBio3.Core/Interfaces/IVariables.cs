@@ -22,6 +22,7 @@
 		double Pb1 { get; set; }
 		double Pb2 { get; set; }
 		bool IsConfidenceIntervalsRequested { get; set; }
+		bool ConsiderAllGenerations { get; set; }
 
 		IVariables Clone ( );
 		string ToString ( );

@@ -25,6 +25,7 @@ namespace EvoBio3.Core.Collections
 		public double Pb1 { get; set; }
 		public double Pb2 { get; set; }
 		public bool IsConfidenceIntervalsRequested { get; set; }
+		public bool ConsiderAllGenerations { get; set; }
 
 		[Pure]
 		IVariables IVariables.Clone ( ) => (VariablesBase) MemberwiseClone ( );
