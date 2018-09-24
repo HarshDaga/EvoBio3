@@ -78,7 +78,10 @@ namespace EvoBio3.Core
 
 		public virtual void Run ( )
 		{
-			using ( var pbar = new ProgressBar ( V.Iterations, "Simulating", ProgressBarOptions.Default ) )
+			var options = ProgressBarOptions.Default;
+			options.EnableTaskBarProgress = true;
+
+			using ( var pbar = new ProgressBar ( V.Iterations, "Simulating", options ) )
 			{
 				ParallelEnumerable
 					.Range ( 0, V.Iterations )
