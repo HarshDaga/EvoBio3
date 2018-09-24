@@ -215,6 +215,19 @@ namespace EvoBio3.Core
 
 		public abstract void CalculateHeritability ( );
 
+		public virtual bool SimulateGeneration ( )
+		{
+			ResetLists ( );
+			Perish1 ( );
+			Perish2 ( );
+			CalculateFecundity ( );
+			CalculateAdjustedFecundity ( );
+			ChooseParentsAndReproduce ( );
+			AddGenerationHistory ( );
+
+			return AllGroups.All ( x => x.Count != V.PopulationSize );
+		}
+
 		public virtual void Run ( )
 		{
 			if ( IsLoggingEnabled )
@@ -222,22 +235,13 @@ namespace EvoBio3.Core
 
 			CreateInitialPopulation ( );
 			AddGenerationHistory ( );
-			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )
-			{
-				ResetLists ( );
-				Perish1 ( );
-				Perish2 ( );
-				CalculateFecundity ( );
-				CalculateAdjustedFecundity ( );
-				ChooseParentsAndReproduce ( );
-				AddGenerationHistory ( );
 
-				if ( AllGroups.Any ( x => x.Count == V.PopulationSize ) )
+			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )
+				if ( !SimulateGeneration ( ) )
 				{
 					++GenerationsPassed;
 					break;
 				}
-			}
 
 			if ( V.ConsiderAllGenerations )
 				for ( var i = GenerationsPassed; i < V.Generations; i++ )

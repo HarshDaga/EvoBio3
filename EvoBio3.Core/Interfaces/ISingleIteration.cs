@@ -53,6 +53,8 @@ namespace EvoBio3.Core.Interfaces
 		List<TIndividual> GetParents ( );
 		void ChooseParentsAndReproduce ( );
 		void CalculateHeritability ( );
+
+		bool SimulateGeneration ( );
 		void Run ( );
 	}
 }

@@ -92,52 +92,24 @@ namespace EvoBio3.Versions
 			}
 		}
 
-		public override void Run ( )
+		public override bool SimulateGeneration ( )
 		{
-			if ( IsLoggingEnabled )
-				Logger.Debug ( $"{this}" );
+			ResetLists ( );
 
-			CreateInitialPopulation ( );
+			Perish1 ( );
+			if ( AllPerished )
+				return false;
+
+			Perish2 ( );
+			if ( AllPerished )
+				return false;
+
+			CalculateFecundity ( );
+			CalculateAdjustedFecundity ( );
+			ChooseParentsAndReproduce ( );
 			AddGenerationHistory ( );
-			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )
-			{
-				ResetLists ( );
 
-				Perish1 ( );
-				if ( AllPerished )
-				{
-					++GenerationsPassed;
-					break;
-				}
-
-				Perish2 ( );
-				if ( AllPerished )
-				{
-					++GenerationsPassed;
-					break;
-				}
-
-				CalculateFecundity ( );
-				CalculateAdjustedFecundity ( );
-				ChooseParentsAndReproduce ( );
-				AddGenerationHistory ( );
-
-				if ( AllGroups.Any ( x => x.Count == V.PopulationSize ) )
-				{
-					++GenerationsPassed;
-					break;
-				}
-			}
-
-			if ( V.ConsiderAllGenerations )
-				for ( var i = GenerationsPassed; i < V.Generations; i++ )
-					AddGenerationHistory ( );
-
-			CalculateHeritability ( );
-			CalculateWinner ( );
-
-			if ( IsLoggingEnabled )
-				Logger.Debug ( $"\n\nWinner: {Winner}" );
+			return AllGroups.All ( x => x.Count != V.PopulationSize );
 		}
 
 		protected override void CalculateWinner ( )
