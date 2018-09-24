@@ -72,5 +72,9 @@ namespace EvoBio3.Core.Extensions
 
 			return formatter.FormatObjects ( enumerable.Select ( selector ) );
 		}
+
+		public static string Join<T> ( this IEnumerable<T> enumerable,
+		                               string separator ) =>
+			string.Join ( separator, enumerable );
 	}
 }

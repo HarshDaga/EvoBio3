@@ -6,6 +6,7 @@ using EvoBio3.Core.Enums;
 using EvoBio3.Core.Extensions;
 using EvoBio3.Core.Interfaces;
 using MathNet.Numerics.Statistics;
+using MoreLinq;
 
 namespace EvoBio3.Versions
 {
@@ -174,8 +175,7 @@ namespace EvoBio3.Versions
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\n\nReproduce:\n" );
-				var table = History
-					.TakeLast ( V.PopulationSize )
+				var table = Enumerable.TakeLast ( History, V.PopulationSize )
 					.OrderBy ( x => x.parent.Type )
 					.ThenBy ( x => x.parent.Id )
 					.ToTable ( x => new
@@ -237,6 +237,32 @@ namespace EvoBio3.Versions
 				VarianceReproduction        = varReproduction,
 				CovarianceReproduction      = covReproduction
 			};
+
+			if ( IsLoggingEnabled )
+			{
+				Logger.Debug ( "\n\nHeritability Calculations: \n" );
+				var generations = History
+					.GroupBy ( x => x.parent )
+					.Select ( x => ( parent: x.Key,
+					                 offsprings: x.Select ( y => y.offspring )
+						                 .ToList ( ) ) )
+					.Batch ( V.PopulationSize )
+					.Select ( x => x.ToList ( ) )
+					.ToList ( );
+				for ( var i = 0; i < generations.Count; i++ )
+				{
+					var generation = generations[i];
+					Logger.Debug ( $"\n\nGen#{i + 1}\n" );
+					foreach ( var group in generation )
+					{
+						Logger.Debug ( $"{group.parent} -> {group.offsprings.Count} Offsprings:" );
+						foreach ( var offspring in group.offsprings )
+							Logger.Debug ( $"\t{offspring} OffspringCount: {offspring.OffspringCount}" );
+					}
+				}
+
+				Logger.Debug ( $"\n{Heritability}" );
+			}
 		}
 	}
 }

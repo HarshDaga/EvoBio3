@@ -237,11 +237,15 @@ namespace EvoBio3.Core
 			AddGenerationHistory ( );
 
 			for ( GenerationsPassed = 0; GenerationsPassed < V.Generations; ++GenerationsPassed )
+			{
+				if ( IsLoggingEnabled )
+					Logger.Debug ( $"\nGeneration #{GenerationsPassed + 1}\n\n" );
 				if ( !SimulateGeneration ( ) )
 				{
 					++GenerationsPassed;
 					break;
 				}
+			}
 
 			if ( V.ConsiderAllGenerations )
 				for ( var i = GenerationsPassed; i < V.Generations; i++ )

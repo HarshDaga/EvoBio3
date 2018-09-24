@@ -56,8 +56,7 @@ namespace EvoBio3.Collections
 		}
 
 		public override string ToString ( ) =>
-			$"{PaddedName}\n" +
-			$"    GeneticQuality: {GeneticQuality,8:F4} PhenotypicQuality: {PhenotypicQuality,8:F4}";
+			$"{PaddedName} GeneticQuality: {GeneticQuality,8:F4} PhenotypicQuality: {PhenotypicQuality,8:F4}";
 
 		public override string ToDetailedString ( ) =>
 			$"{PaddedName}\n" +
