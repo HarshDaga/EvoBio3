@@ -253,10 +253,10 @@ namespace EvoBio3.Versions
 				{
 					var generation = generations[i];
 					Logger.Debug ( $"\n\nGen#{i + 1}\n" );
-					foreach ( var group in generation )
+					foreach ( var (parent, offsprings) in generation )
 					{
-						Logger.Debug ( $"{group.parent} -> {group.offsprings.Count} Offsprings:" );
-						foreach ( var offspring in group.offsprings )
+						Logger.Debug ( $"{parent} -> {offsprings.Count} Offsprings:" );
+						foreach ( var offspring in offsprings )
 							Logger.Debug ( $"\t{offspring} OffspringCount: {offspring.OffspringCount}" );
 					}
 				}

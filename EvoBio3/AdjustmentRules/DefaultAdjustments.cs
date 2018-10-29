@@ -49,13 +49,15 @@ namespace EvoBio3.AdjustmentRules
 			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB1 )
 				return;
 
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb1 : V.Qr;
+
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= V.Qb1 )
+				if ( ind.PhenotypicQuality <= cutoff )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb1,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > V.Qt && Iteration.Step1Rejects.Count < V.PiD )
@@ -63,7 +65,7 @@ namespace EvoBio3.AdjustmentRules
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qb1,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
@@ -73,13 +75,15 @@ namespace EvoBio3.AdjustmentRules
 			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB2 )
 				return;
 
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb2 : V.Qr;
+
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= V.Qb2 )
+				if ( ind.PhenotypicQuality <= cutoff )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qb2,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > V.Qu && Iteration.Step1Rejects.Count < V.PiD )
@@ -87,7 +91,7 @@ namespace EvoBio3.AdjustmentRules
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qb2,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}

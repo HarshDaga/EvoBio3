@@ -37,17 +37,15 @@ namespace EvoBio3.Core.Collections
 
 		public bool Equals ( IIndividual other )
 		{
-			if ( ReferenceEquals ( null, other ) ) return false;
-			if ( ReferenceEquals ( this, other ) ) return true;
-			return Guid.Equals ( other.Guid );
+			if ( other is null ) return false;
+			return ReferenceEquals ( this, other ) || Guid.Equals ( other.Guid );
 		}
 
 		public override bool Equals ( object obj )
 		{
-			if ( ReferenceEquals ( null, obj ) ) return false;
+			if ( obj is null ) return false;
 			if ( ReferenceEquals ( this, obj ) ) return true;
-			if ( obj.GetType ( ) != GetType ( ) ) return false;
-			return Equals ( (IndividualBase) obj );
+			return obj.GetType ( ) == GetType ( ) && Equals ( (IndividualBase) obj );
 		}
 
 		public override int GetHashCode ( ) => Guid.GetHashCode ( );

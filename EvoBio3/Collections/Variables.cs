@@ -12,10 +12,10 @@ namespace EvoBio3.Collections
 		public double Beta { get; set; }
 		public double Y { get; set; }
 		public double R { get; set; }
-		public double PiD { get; set; }
-		public double PiCR { get; set; }
-		public double PiCB1 { get; set; }
-		public double PiCB2 { get; set; }
+		public int PiD { get; set; }
+		public int PiCR { get; set; }
+		public int PiCB1 { get; set; }
+		public int PiCB2 { get; set; }
 		public double Qr { get; set; }
 		public double Qb1 { get; set; }
 		public double Qb2 { get; set; }

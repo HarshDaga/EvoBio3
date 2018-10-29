@@ -11,10 +11,10 @@
   <ItemGroup>
     <PackageReference Include="Alba.CsConsoleFormat" Version="1.0.0" />
     <PackageReference Include="Enums.NET" Version="2.3.2" />
-    <PackageReference Include="MathNet.Numerics" Version="4.5.1" />
+    <PackageReference Include="MathNet.Numerics" Version="4.6.0" />
     <PackageReference Include="morelinq" Version="3.0.0" />
-    <PackageReference Include="NLog" Version="4.5.9" />
-    <PackageReference Include="NLog.Config" Version="4.5.9" />
+    <PackageReference Include="NLog" Version="4.5.10" />
+    <PackageReference Include="NLog.Config" Version="4.5.10" />
   </ItemGroup>
 
   <ItemGroup>
