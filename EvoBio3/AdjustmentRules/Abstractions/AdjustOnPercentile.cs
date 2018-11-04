@@ -11,57 +11,63 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 	{
 		public override void CalculateBoth1Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB1 )
-				return;
+			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
+
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD
+				? Iteration.Both1Threshold
+				: Iteration.Both1ResonationThreshold;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= Iteration.Both1Threshold )
+				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB1 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.Both1Threshold,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > Iteration.Both1ReservationThreshold &&
-				          Iteration.Step1Rejects.Count < V.PiD )
+				          perished >= V.PiCB1 )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1Threshold,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB2 )
-				return;
+			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
+
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD
+				? Iteration.Both2Threshold
+				: Iteration.Both2ResonationThreshold;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= Iteration.Both2Threshold )
+				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB2 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.Both2Threshold,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 				else if ( ind.PhenotypicQuality > Iteration.Both2ReservationThreshold &&
-				          Iteration.Step1Rejects.Count < V.PiD )
+				          perished >= V.PiCB2 )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2Threshold,8:F4};" +
+							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
 		public override void CalculateResonationFecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCR )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count >= V.PiCR )
 				return;
 
 			foreach ( var ind in Iteration.ResonationGroup.Where (

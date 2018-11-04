@@ -46,13 +46,12 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth1Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB1 )
-				return;
+			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
 
-			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb1 : V.Qr;
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb1 : V.Qrb1;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff )
+				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB1 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
@@ -60,7 +59,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qt && Iteration.Step1Rejects.Count < V.PiD )
+				else if ( ind.PhenotypicQuality > V.Qt && perished >= V.PiCB1 )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
@@ -72,13 +71,12 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCB2 )
-				return;
+			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
 
-			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb2 : V.Qr;
+			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb2 : V.Qrb2;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff )
+				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB2 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
@@ -86,7 +84,7 @@ namespace EvoBio3.AdjustmentRules
 							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qu && Iteration.Step1Rejects.Count < V.PiD )
+				else if ( ind.PhenotypicQuality > V.Qu && perished >= V.PiCB2 )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
@@ -98,7 +96,7 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateResonationFecundity ( )
 		{
-			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count > V.PiCR )
+			if ( Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count >= V.PiCR )
 				return;
 
 			foreach ( var ind in Iteration.ResonationGroup.Where ( x => !x.IsPerished && x.PhenotypicQuality <= V.Qr ) )

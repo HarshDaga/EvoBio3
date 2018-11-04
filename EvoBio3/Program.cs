@@ -24,8 +24,9 @@ namespace EvoBio3
 				Beta = 0.2, Y   = .8, R    = .15, Z   = 1.96,
 				PiD  = 70, PiCR = 0, PiCB1 = 0, PiCB2 = 0,
 				B1   = 10, B2   = 15,
-				Qr   = 8, Qb1   = 0, Qb2  = 0, Qt = 0, Qu = 0,
-				Pr   = -1, Pb1  = 20, Pb2 = 25,
+				Qr   = 8, Qrb1  = 8, Qrb2  = 8,
+				Qb1  = 0, Qb2   = 0, Qt    = 0, Qu   = 0,
+				Pr   = -1, Prb1 = -1, Prb2 = -1, Pb1 = 20, Pb2 = 25,
 
 				ConsiderAllGenerations         = true,
 				IsConfidenceIntervalsRequested = false

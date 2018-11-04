@@ -27,13 +27,13 @@ namespace EvoBio3.Core.Collections
 			Id   = id;
 		}
 
+		bool IEquatable<IndividualBase>.Equals ( IndividualBase other ) => Equals ( other );
+
 		public void Perish ( )
 		{
 			IsPerished = true;
-			Fecundity = 0;
+			Fecundity  = 0;
 		}
-
-		bool IEquatable<IndividualBase>.Equals ( IndividualBase other ) => Equals ( other );
 
 		public bool Equals ( IIndividual other )
 		{
