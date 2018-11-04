@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Alba.CsConsoleFormat;
+using CsvHelper;
 using EvoBio3.Core.Enums;
 using EvoBio3.Core.Interfaces;
 using MoreLinq;
@@ -10,6 +12,7 @@ using static EnumsNET.Enums;
 
 namespace EvoBio3.Core.Collections
 {
+	[SuppressMessage ( "ReSharper", "UnusedAutoPropertyAccessor.Local" )]
 	public class ConfidenceIntervalStats : IConfidenceIntervalStats
 	{
 		public static IEnumerable<IndividualType> IndividualTypes => GetValues<IndividualType> ( );
@@ -90,6 +93,15 @@ namespace EvoBio3.Core.Collections
 			return sw.GetStringBuilder ( ).ToString ( );
 		}
 
+		public void PrintToCsv ( string fileName )
+		{
+			using ( var csv = new CsvWriter ( File.CreateText ( fileName ) ) )
+			{
+				csv.WriteRecords ( Summary.Select ( ( x,
+				                                      i ) => new CsvRecord ( i, x ) ) );
+			}
+		}
+
 		public void PrintToFile ( string fileName )
 		{
 			File.WriteAllText ( fileName, ToTable ( ) );
@@ -128,5 +140,40 @@ namespace EvoBio3.Core.Collections
 				}
 			}
 		};
+
+		private class CsvRecord
+		{
+			public int Generation { get; }
+			public double Both1Low { get; }
+			public double Both1Mean { get; }
+			public double Both1High { get; }
+			public double Both2Low { get; }
+			public double Both2Mean { get; }
+			public double Both2High { get; }
+			public double ResonationLow { get; }
+			public double ResonationMean { get; }
+			public double ResonationHigh { get; }
+			public double NullLow { get; }
+			public double NullMean { get; }
+			public double NullHigh { get; }
+
+			public CsvRecord ( int generation,
+			                   IDictionary<IndividualType, ConfidenceInterval> record )
+			{
+				Generation     = generation;
+				Both1Low       = record[IndividualType.Both1].Low;
+				Both1Mean      = record[IndividualType.Both1].Mean;
+				Both1High      = record[IndividualType.Both1].High;
+				Both2Low       = record[IndividualType.Both2].Low;
+				Both2Mean      = record[IndividualType.Both2].Mean;
+				Both2High      = record[IndividualType.Both2].High;
+				ResonationLow  = record[IndividualType.Resonation].Low;
+				ResonationMean = record[IndividualType.Resonation].Mean;
+				ResonationHigh = record[IndividualType.Resonation].High;
+				NullLow        = record[IndividualType.Null].Low;
+				NullMean       = record[IndividualType.Null].Mean;
+				NullHigh       = record[IndividualType.Null].High;
+			}
+		}
 	}
 }

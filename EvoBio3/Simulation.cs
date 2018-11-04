@@ -20,6 +20,7 @@ namespace EvoBio3
 		public override void PrintConfidenceIntervals ( string fileName )
 		{
 			ConfidenceIntervalStats.Compute ( );
+			ConfidenceIntervalStats.PrintToCsv ( "ConfidenceIntervals.csv" );
 			var ci = ConfidenceIntervalStats.ToTable ( );
 
 			var properties = new[]

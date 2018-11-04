@@ -15,7 +15,7 @@ namespace EvoBio3
 			var v = new Variables
 			{
 				Both1Quantity   = 0, Both2Quantity   = 0, ResonationQuantity = 100, NullQuantity = 100,
-				Generations     = 250, Iterations    = 10000,
+				Generations     = 250, Iterations    = 1000,
 				SdGenetic       = 1, SdPheno         = 0,
 				MeanPerishStep1 = 0.0, SdPerishStep1 = 0.0,
 				MeanPerishStep2 = 0, SdPerishStep2   = 0,
@@ -29,7 +29,7 @@ namespace EvoBio3
 				Pr   = -1, Prb1 = -1, Prb2 = -1, Pb1 = 20, Pb2 = 25,
 
 				ConsiderAllGenerations         = true,
-				IsConfidenceIntervalsRequested = false
+				IsConfidenceIntervalsRequested = true
 			};
 
 			var timer = Stopwatch.StartNew ( );

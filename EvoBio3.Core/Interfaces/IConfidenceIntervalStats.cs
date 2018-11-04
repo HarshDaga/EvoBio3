@@ -20,6 +20,7 @@ namespace EvoBio3.Core.Interfaces
 		void Compute ( );
 
 		string ToTable ( );
+		void PrintToCsv ( string fileName );
 		void PrintToFile ( string fileName );
 		void PrintToConsole ( );
 	}
