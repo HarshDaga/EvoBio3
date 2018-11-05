@@ -13,6 +13,7 @@ using static EnumsNET.Enums;
 namespace EvoBio3.Core.Collections
 {
 	[SuppressMessage ( "ReSharper", "UnusedAutoPropertyAccessor.Local" )]
+	[SuppressMessage ( "ReSharper", "MemberCanBePrivate.Local" )]
 	public class ConfidenceIntervalStats : IConfidenceIntervalStats
 	{
 		public static IEnumerable<IndividualType> IndividualTypes => GetValues<IndividualType> ( );
@@ -144,18 +145,18 @@ namespace EvoBio3.Core.Collections
 		private class CsvRecord
 		{
 			public int Generation { get; }
+			public double Both1High { get; }
 			public double Both1Low { get; }
 			public double Both1Mean { get; }
-			public double Both1High { get; }
+			public double Both2High { get; }
 			public double Both2Low { get; }
 			public double Both2Mean { get; }
-			public double Both2High { get; }
+			public double ResonationHigh { get; }
 			public double ResonationLow { get; }
 			public double ResonationMean { get; }
-			public double ResonationHigh { get; }
+			public double NullHigh { get; }
 			public double NullLow { get; }
 			public double NullMean { get; }
-			public double NullHigh { get; }
 
 			public CsvRecord ( int generation,
 			                   IDictionary<IndividualType, ConfidenceInterval> record )
