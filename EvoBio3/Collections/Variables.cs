@@ -32,7 +32,7 @@ namespace EvoBio3.Collections
 			$"{nameof ( Qr )}: {Qr}, {nameof ( Qrb1 )}: {Qrb1}, {nameof ( Qrb2 )}: {Qrb2}\n" +
 			$"{nameof ( Qb1 )}: {Qb1}, {nameof ( Qb2 )}: {Qb2}, {nameof ( Qt )}: {Qt}, {nameof ( Qu )}: {Qu}\n" +
 			$"{nameof ( B1 )}: {B1}, {nameof ( B2 )}: {B2}\n" +
-			$"{nameof ( Pr )}: {Pr}, {nameof ( Prb1 )}: {Prb1}, {nameof ( Prb2 )}: {Prb2}, {nameof ( Pb1 )}: {Pb1}, {nameof ( Pb2 )}: {Pb2}";
+			$"{nameof ( Pr )}: {Pr}, {nameof ( PrB1 )}: {PrB1}, {nameof ( PrB2 )}: {PrB2}, {nameof ( Pb1 )}: {Pb1}, {nameof ( Pb2 )}: {Pb2}";
 
 		[Pure]
 		public override VariablesBase Clone ( ) => (Variables) MemberwiseClone ( );

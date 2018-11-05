@@ -11,57 +11,49 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 	{
 		public override void CalculateBoth1Fecundity ( )
 		{
-			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
-
 			var cutoff = Iteration.Step1Rejects.Count < V.PiD
-				? Iteration.Both1Threshold
-				: Iteration.Both1ResonationThreshold;
+				? Iteration.Pb1Percentile
+				: Iteration.PrB1Percentile;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB1 )
+				if ( ind.PhenotypicQuality <= cutoff && TotalPerished < V.PiCB1 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
+							$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > Iteration.Both1ReservationThreshold &&
-				          perished >= V.PiCB1 )
+				else if ( ind.HasReserved &
+				          ( ind.PhenotypicQuality > Iteration.Pb1Percentile || TotalPerished >= V.PiCB1 ) )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
-						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
-							$" Fecundity = {ind.Fecundity,8:F4}" );
+						Logger.Debug ( $"Reduction  :: {ind.PaddedName} Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
-
 			var cutoff = Iteration.Step1Rejects.Count < V.PiD
-				? Iteration.Both2Threshold
-				: Iteration.Both2ResonationThreshold;
+				? Iteration.Pb2Percentile
+				: Iteration.PrB2Percentile;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB2 )
+				if ( ind.PhenotypicQuality <= cutoff && TotalPerished < V.PiCB2 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
+							$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > Iteration.Both2ReservationThreshold &&
-				          perished >= V.PiCB2 )
+				else if ( ind.HasReserved &
+				          ( ind.PhenotypicQuality > Iteration.Pb2Percentile || TotalPerished >= V.PiCB2 ) )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
-						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
-							$" Fecundity = {ind.Fecundity,8:F4}" );
+						Logger.Debug ( $"Reduction  :: {ind.PaddedName} Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
@@ -71,12 +63,12 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 				return;
 
 			foreach ( var ind in Iteration.ResonationGroup.Where (
-				x => !x.IsPerished && x.PhenotypicQuality <= Iteration.ResonationThreshold ) )
+				x => !x.IsPerished && x.PhenotypicQuality <= Iteration.PrPercentile ) )
 			{
 				ind.Fecundity = 0;
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.ResonationThreshold,8:F4};" +
+						$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {Iteration.PrPercentile,8:F4};" +
 						$" Fecundity = {ind.Fecundity,8:F4}" );
 			}
 		}

@@ -14,6 +14,7 @@ namespace EvoBio3.Core.Collections
 		protected static Logger Logger { get; set; } = LogManager.GetCurrentClassLogger ( );
 		public TIteration Iteration { get; set; }
 		public TVariables V => Iteration.V;
+		public int TotalPerished => Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
 		public bool IsLoggingEnabled => Iteration.IsLoggingEnabled;
 
 		protected AdjustmentRulesBase ( TIteration iteration )

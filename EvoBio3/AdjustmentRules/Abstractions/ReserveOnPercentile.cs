@@ -6,7 +6,7 @@ using EvoBio3.Core.Interfaces;
 
 namespace EvoBio3.AdjustmentRules.Abstractions
 {
-	public abstract class ReservateOnPercentile :
+	public abstract class ReserveOnPercentile :
 		AdjustmentRulesBase<Individual, IndividualGroup, Variables,
 			ISingleIteration<Individual, IndividualGroup, Variables>>
 	{
@@ -16,12 +16,13 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 				return;
 
 			foreach ( var ind in Iteration.Both1Group.Where (
-				x => x.PhenotypicQuality > Iteration.Both1ReservationThreshold ) )
+				x => x.PhenotypicQuality > Iteration.B1Percentile ) )
 			{
-				ind.S = Math.Max ( 0, ind.S - V.C1 );
+				ind.HasReserved = true;
+				ind.S           = Math.Max ( 0, ind.S - V.C1 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both1ReservationThreshold,8:F4}; S ={ind.S,8:F4}" );
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.B1Percentile,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 
@@ -31,12 +32,13 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 				return;
 
 			foreach ( var ind in Iteration.Both2Group.Where (
-				x => x.PhenotypicQuality > Iteration.Both2ReservationThreshold ) )
+				x => x.PhenotypicQuality > Iteration.B2Percentile ) )
 			{
-				ind.S = Math.Max ( 0, ind.S - V.C2 );
+				ind.HasReserved = true;
+				ind.S           = Math.Max ( 0, ind.S - V.C2 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.Both2ReservationThreshold,8:F4}; S ={ind.S,8:F4}" );
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.B2Percentile,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 	}

@@ -17,7 +17,8 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => x.PhenotypicQuality > V.Qt ) )
 			{
-				ind.S = Math.Max ( 0, ind.PhenotypicQuality - V.C1 );
+				ind.HasReserved = true;
+				ind.S           = Math.Max ( 0, ind.PhenotypicQuality - V.C1 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
 						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qt,8:F4}; S ={ind.S,8:F4}" );
@@ -31,7 +32,8 @@ namespace EvoBio3.AdjustmentRules
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => x.PhenotypicQuality > V.Qu ) )
 			{
-				ind.S = Math.Max ( 0, ind.PhenotypicQuality - V.C2 );
+				ind.HasReserved = true;
+				ind.S           = Math.Max ( 0, ind.PhenotypicQuality - V.C2 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
 						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {V.Qu,8:F4}; S ={ind.S,8:F4}" );
@@ -46,51 +48,45 @@ namespace EvoBio3.AdjustmentRules
 
 		public override void CalculateBoth1Fecundity ( )
 		{
-			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
-
 			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb1 : V.Qrb1;
 
 			foreach ( var ind in Iteration.Both1Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB1 )
+				if ( ind.PhenotypicQuality <= cutoff && TotalPerished < V.PiCB1 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
+							$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qt && perished >= V.PiCB1 )
+				else if ( ind.HasReserved &
+				          ( ind.PhenotypicQuality > V.Qb1 || TotalPerished >= V.PiCB1 ) )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C1;
 					if ( IsLoggingEnabled )
-						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
-							$" Fecundity = {ind.Fecundity,8:F4}" );
+						Logger.Debug ( $"Reduction  :: {ind.PaddedName} Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
 		public override void CalculateBoth2Fecundity ( )
 		{
-			var perished = Iteration.Step1Rejects.Count + Iteration.Step2Rejects.Count;
-
 			var cutoff = Iteration.Step1Rejects.Count < V.PiD ? V.Qb2 : V.Qrb2;
 
 			foreach ( var ind in Iteration.Both2Group.Where ( x => !x.IsPerished ) )
-				if ( ind.PhenotypicQuality <= cutoff && perished < V.PiCB2 )
+				if ( ind.PhenotypicQuality <= cutoff && TotalPerished < V.PiCB2 )
 				{
 					ind.Fecundity = 0;
 					if ( IsLoggingEnabled )
 						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
+							$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {cutoff,8:F4};" +
 							$" Fecundity = {ind.Fecundity,8:F4}" );
 				}
-				else if ( ind.PhenotypicQuality > V.Qu && perished >= V.PiCB2 )
+				else if ( ind.HasReserved &
+				          ( ind.PhenotypicQuality > V.Qb2 || TotalPerished >= V.PiCB2 ) )
 				{
 					ind.Fecundity = ind.PhenotypicQuality - V.Beta * V.C2;
 					if ( IsLoggingEnabled )
-						Logger.Debug (
-							$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {cutoff,8:F4};" +
-							$" Fecundity = {ind.Fecundity,8:F4}" );
+						Logger.Debug ( $"Reduction  :: {ind.PaddedName} Fecundity = {ind.Fecundity,8:F4}" );
 				}
 		}
 
@@ -104,7 +100,7 @@ namespace EvoBio3.AdjustmentRules
 				ind.Fecundity = 0;
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qr,8:F4};" +
+						$"Resonation :: {ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} <= {V.Qr,8:F4};" +
 						$" Fecundity = {ind.Fecundity,8:F4}" );
 			}
 		}

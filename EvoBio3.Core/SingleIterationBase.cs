@@ -70,13 +70,13 @@ namespace EvoBio3.Core
 
 		public double PerishedPercent { get; protected set; }
 		public int GenerationsPassed { get; protected set; }
-		public double Both1ReservationThreshold { get; protected set; }
-		public double Both2ReservationThreshold { get; protected set; }
-		public double ResonationThreshold { get; protected set; }
-		public double Both1ResonationThreshold { get; protected set; }
-		public double Both2ResonationThreshold { get; protected set; }
-		public double Both1Threshold { get; protected set; }
-		public double Both2Threshold { get; protected set; }
+		public double B1Percentile { get; protected set; }
+		public double B2Percentile { get; protected set; }
+		public double PrPercentile { get; protected set; }
+		public double PrB1Percentile { get; protected set; }
+		public double PrB2Percentile { get; protected set; }
+		public double Pb1Percentile { get; protected set; }
+		public double Pb2Percentile { get; protected set; }
 
 		public IHeritabilitySummary Heritability { get; set; }
 		public Winner Winner { get; set; }
@@ -147,24 +147,24 @@ namespace EvoBio3.Core
 				.OrderBy ( x => x )
 				.ToList ( );
 
-			Both1ReservationThreshold = values.AtPercentage ( V.B1 );
-			Both2ReservationThreshold = values.AtPercentage ( V.B2 );
-			ResonationThreshold       = values.AtPercentage ( V.Pr, 0 );
-			Both1ResonationThreshold  = values.AtPercentage ( V.Prb1, 0 );
-			Both2ResonationThreshold  = values.AtPercentage ( V.Prb2, 0 );
-			Both1Threshold            = values.AtPercentage ( V.Pb1, 0 );
-			Both2Threshold            = values.AtPercentage ( V.Pb2, 0 );
+			B1Percentile   = values.AtPercentile ( V.B1 );
+			B2Percentile   = values.AtPercentile ( V.B2 );
+			PrPercentile   = values.AtPercentile ( V.Pr, 0 );
+			PrB1Percentile = values.AtPercentile ( V.PrB1, 0 );
+			PrB2Percentile = values.AtPercentile ( V.PrB2, 0 );
+			Pb1Percentile  = values.AtPercentile ( V.Pb1, 0 );
+			Pb2Percentile  = values.AtPercentile ( V.Pb2, 0 );
 
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\nCalculate Thresholds:\n" );
-				Logger.Debug ( $"Both1 Reservation Threshold      @ {V.B1 / 100:P} = {Both1ReservationThreshold:F4}" );
-				Logger.Debug ( $"Both2 Reservation Threshold      @ {V.B2 / 100:P} = {Both2ReservationThreshold:F4}" );
-				Logger.Debug ( $"Both1 Resonation Threshold       @ {V.Prb1 / 100:P} = {Both1ResonationThreshold:F4}" );
-				Logger.Debug ( $"Both2 Resonation Threshold       @ {V.Prb2 / 100:P} = {Both2ResonationThreshold:F4}" );
-				Logger.Debug ( $"Resonation Threshold             @ {V.Pr / 100:P} = {ResonationThreshold:F4}" );
-				Logger.Debug ( $"Both1 Threshold                  @ {V.Pb1 / 100:P} = {Both1Threshold:F4}" );
-				Logger.Debug ( $"Both2 Threshold                  @ {V.Pb2 / 100:P} = {Both2Threshold:F4}" );
+				Logger.Debug ( $"Both1 Reservation Threshold      @ {V.B1 / 100:P} = {B1Percentile:F4}" );
+				Logger.Debug ( $"Both2 Reservation Threshold      @ {V.B2 / 100:P} = {B2Percentile:F4}" );
+				Logger.Debug ( $"Both1 Resonation Threshold       @ {V.PrB1 / 100:P} = {PrB1Percentile:F4}" );
+				Logger.Debug ( $"Both2 Resonation Threshold       @ {V.PrB2 / 100:P} = {PrB2Percentile:F4}" );
+				Logger.Debug ( $"Resonation Threshold             @ {V.Pr / 100:P} = {PrPercentile:F4}" );
+				Logger.Debug ( $"Both1 Threshold                  @ {V.Pb1 / 100:P} = {Pb1Percentile:F4}" );
+				Logger.Debug ( $"Both2 Threshold                  @ {V.Pb2 / 100:P} = {Pb2Percentile:F4}" );
 			}
 		}
 

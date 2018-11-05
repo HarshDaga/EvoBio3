@@ -2,7 +2,7 @@
 
 namespace EvoBio3.AdjustmentRules
 {
-	public class Version2Adjustments : ReservateAndAdjustOnPercentile
+	public class Version2Adjustments : ReserveAndAdjustOnPercentile
 	{
 		public override void AdjustStep1 ( )
 		{

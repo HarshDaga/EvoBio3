@@ -26,13 +26,13 @@ namespace EvoBio3.Core.Interfaces
 		IHeritabilitySummary Heritability { get; }
 		Winner Winner { get; }
 		int GenerationsPassed { get; }
-		double Both1ReservationThreshold { get; }
-		double Both2ReservationThreshold { get; }
-		double Both1ResonationThreshold { get; }
-		double Both2ResonationThreshold { get; }
-		double ResonationThreshold { get; }
-		double Both1Threshold { get; }
-		double Both2Threshold { get; }
+		double B1Percentile { get; }
+		double B2Percentile { get; }
+		double PrB1Percentile { get; }
+		double PrB2Percentile { get; }
+		double PrPercentile { get; }
+		double Pb1Percentile { get; }
+		double Pb2Percentile { get; }
 
 		IAdjustmentRules<TIndividual, TGroup, TVariables,
 			ISingleIteration<TIndividual, TGroup, TVariables>> AdjustmentRules { get; }

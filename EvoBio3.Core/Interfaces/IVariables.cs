@@ -19,8 +19,8 @@
 		double B1 { get; set; }
 		double B2 { get; set; }
 		double Pr { get; set; }
-		double Prb1 { get; set; }
-		double Prb2 { get; set; }
+		double PrB1 { get; set; }
+		double PrB2 { get; set; }
 		double Pb1 { get; set; }
 		double Pb2 { get; set; }
 		bool IsConfidenceIntervalsRequested { get; set; }

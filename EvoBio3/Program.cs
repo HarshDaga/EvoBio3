@@ -26,7 +26,7 @@ namespace EvoBio3
 				B1   = 10, B2   = 15,
 				Qr   = 8, Qrb1  = 8, Qrb2  = 8,
 				Qb1  = 0, Qb2   = 0, Qt    = 0, Qu   = 0,
-				Pr   = -1, Prb1 = -1, Prb2 = -1, Pb1 = 20, Pb2 = 25,
+				Pr   = -1, PrB1 = -1, PrB2 = -1, Pb1 = 20, Pb2 = 25,
 
 				ConsiderAllGenerations         = true,
 				IsConfidenceIntervalsRequested = true

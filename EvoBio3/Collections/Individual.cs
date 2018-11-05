@@ -8,6 +8,7 @@ namespace EvoBio3.Collections
 	public class Individual : IndividualBase, IEquatable<Individual>
 	{
 		public double S;
+		public bool HasReserved;
 
 		public Individual ( ) : base ( default, default )
 		{
