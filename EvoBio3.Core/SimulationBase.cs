@@ -60,7 +60,7 @@ namespace EvoBio3.Core
 			HeritabilityMean      = new THeritability ( );
 			HeritabilitySd        = new THeritability ( );
 
-			if ( V.IsConfidenceIntervalsRequested )
+			if ( V.IncludeConfidenceIntervals )
 				ConfidenceIntervalStats = new ConfidenceIntervalStats ( V.Generations, V.Runs, V.Z );
 
 			var generations = V.Generations;
@@ -115,7 +115,7 @@ namespace EvoBio3.Core
 					HeritabilitySummaries.Select ( x => x.Values[index] ).MeanStandardDeviation ( );
 			}
 
-			if ( V.IsConfidenceIntervalsRequested )
+			if ( V.IncludeConfidenceIntervals )
 				PrintConfidenceIntervals ( "ConfidenceIntervals.txt" );
 		}
 

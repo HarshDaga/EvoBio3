@@ -23,8 +23,8 @@
 		double ResonationQualityCutoffForCooperator2WithNoReservationVersion1 { get; set; }
 		double ResonationQualityCutoffForCooperator1WithReservationVersion1 { get; set; }
 		double ResonationQualityCutoffForCooperator2WithReservationVersion1 { get; set; }
-		bool IsConfidenceIntervalsRequested { get; set; }
-		bool ConsiderAllGenerations { get; set; }
+		bool IncludeConfidenceIntervals { get; set; }
+		bool ConfidenceIntervalsIncludeGenerationsFollowingFixation { get; set; }
 
 		IVariables Clone ( );
 		string ToString ( );

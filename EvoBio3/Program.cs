@@ -43,8 +43,8 @@ namespace EvoBio3
 				ResonationQualityCutoffForCooperator1WithReservationVersion1   = 20,
 				ResonationQualityCutoffForCooperator2WithReservationVersion1   = 25,
 
-				ConsiderAllGenerations         = true,
-				IsConfidenceIntervalsRequested = true
+				ConfidenceIntervalsIncludeGenerationsFollowingFixation         = true,
+				IncludeConfidenceIntervals = true
 			};
 
 			var timer = Stopwatch.StartNew ( );

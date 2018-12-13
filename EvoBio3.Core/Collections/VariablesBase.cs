@@ -26,8 +26,8 @@ namespace EvoBio3.Core.Collections
 		public double ResonationQualityCutoffForCooperator2WithNoReservationVersion1 { get; set; }
 		public double ResonationQualityCutoffForCooperator1WithReservationVersion1 { get; set; }
 		public double ResonationQualityCutoffForCooperator2WithReservationVersion1 { get; set; }
-		public bool IsConfidenceIntervalsRequested { get; set; }
-		public bool ConsiderAllGenerations { get; set; }
+		public bool IncludeConfidenceIntervals { get; set; }
+		public bool ConfidenceIntervalsIncludeGenerationsFollowingFixation { get; set; }
 
 		[Pure]
 		IVariables IVariables.Clone ( ) => (VariablesBase) MemberwiseClone ( );

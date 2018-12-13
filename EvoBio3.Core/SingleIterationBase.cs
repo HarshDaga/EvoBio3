@@ -267,7 +267,7 @@ namespace EvoBio3.Core
 				}
 			}
 
-			if ( V.ConsiderAllGenerations )
+			if ( V.ConfidenceIntervalsIncludeGenerationsFollowingFixation )
 				for ( var i = GenerationsPassed; i < V.Generations; i++ )
 					AddGenerationHistory ( );
 
