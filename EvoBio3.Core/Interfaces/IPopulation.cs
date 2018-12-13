@@ -10,10 +10,10 @@ namespace EvoBio3.Core.Interfaces
 	{
 		TGroup[] AllGroups { get; set; }
 		IList<TIndividual> AllIndividuals { get; set; }
-		TGroup Both1Group { get; set; }
-		TGroup Both2Group { get; set; }
+		TGroup Cooperator1Group { get; set; }
+		TGroup Cooperator2Group { get; set; }
 		TGroup ResonationGroup { get; set; }
-		TGroup NullGroup { get; set; }
+		TGroup DefectorGroup { get; set; }
 
 		void Init ( TVariables variables );
 

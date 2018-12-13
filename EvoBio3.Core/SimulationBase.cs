@@ -42,38 +42,38 @@ namespace EvoBio3.Core
 			V = v;
 			Wins = new Dictionary<Winner, int>
 			{
-				[Winner.Both1]                   = 0,
-				[Winner.Both2]                   = 0,
-				[Winner.Resonation]              = 0,
-				[Winner.Null]                    = 0,
-				[Winner.Both1 | Winner.Fix]      = 0,
-				[Winner.Both2 | Winner.Fix]      = 0,
-				[Winner.Resonation | Winner.Fix] = 0,
-				[Winner.Null | Winner.Fix]       = 0,
-				[Winner.Tie]                     = 0
+				[Winner.Cooperator1]              = 0,
+				[Winner.Cooperator2]              = 0,
+				[Winner.Resonation]               = 0,
+				[Winner.Defector]                 = 0,
+				[Winner.Cooperator1 | Winner.Fix] = 0,
+				[Winner.Cooperator2 | Winner.Fix] = 0,
+				[Winner.Resonation | Winner.Fix]  = 0,
+				[Winner.Defector | Winner.Fix]    = 0,
+				[Winner.Tie]                      = 0
 			};
 			GenerationsCount = Enumerable
 				.Range ( 1, V.Generations )
 				.ToDictionary ( x => x, x => 0 );
 
-			HeritabilitySummaries = new List<IHeritabilitySummary> ( V.Iterations );
+			HeritabilitySummaries = new List<IHeritabilitySummary> ( V.Runs );
 			HeritabilityMean      = new THeritability ( );
 			HeritabilitySd        = new THeritability ( );
 
 			if ( V.IsConfidenceIntervalsRequested )
-				ConfidenceIntervalStats = new ConfidenceIntervalStats ( V.Generations, V.Iterations, V.Z );
+				ConfidenceIntervalStats = new ConfidenceIntervalStats ( V.Generations, V.Runs, V.Z );
 
 			var generations = V.Generations;
-			var iterations = V.Iterations;
+			var runs = V.Runs;
 			V.Generations = 5;
-			V.Iterations  = 5;
+			V.Runs        = 5;
 
 			var iteration = new TIteration ( );
 			iteration.Init ( V, adjustmentRules, true );
 			iteration.Run ( );
 
 			V.Generations = generations;
-			V.Iterations  = iterations;
+			V.Runs        = runs;
 		}
 
 		public virtual void Run ( )
@@ -81,10 +81,10 @@ namespace EvoBio3.Core
 			var options = ProgressBarOptions.Default;
 			options.EnableTaskBarProgress = true;
 
-			using ( var pbar = new ProgressBar ( V.Iterations, "Simulating", options ) )
+			using ( var pbar = new ProgressBar ( V.Runs, "Simulating", options ) )
 			{
 				ParallelEnumerable
-					.Range ( 0, V.Iterations )
+					.Range ( 0, V.Runs )
 					.ForAll ( i =>
 						{
 							var adjustmentRules = new TAdjustmentRules ( );
@@ -133,7 +133,7 @@ namespace EvoBio3.Core
 			var count = GenerationsCount.Values
 				.CumulativeSum ( )
 				.ToList ( )
-				.TakeUntil ( x => x >= V.Iterations )
+				.TakeUntil ( x => x >= V.Runs )
 				.Count ( );
 			result += string.Join (
 				"\n",

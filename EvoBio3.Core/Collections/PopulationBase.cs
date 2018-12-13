@@ -14,10 +14,10 @@ namespace EvoBio3.Core.Collections
 	{
 		public IList<TIndividual> AllIndividuals { get; set; }
 
-		public TGroup Both1Group { get; set; }
+		public TGroup Cooperator1Group { get; set; }
 		public TGroup ResonationGroup { get; set; }
-		public TGroup Both2Group { get; set; }
-		public TGroup NullGroup { get; set; }
+		public TGroup Cooperator2Group { get; set; }
+		public TGroup DefectorGroup { get; set; }
 		public TGroup[] AllGroups { get; set; }
 
 		public void RebuildAllIndividualsList ( )
@@ -35,7 +35,7 @@ namespace EvoBio3.Core.Collections
 		{
 			Create ( variables );
 
-			AllGroups = new[] {Both1Group, Both2Group, ResonationGroup, NullGroup};
+			AllGroups = new[] {Cooperator1Group, Cooperator2Group, ResonationGroup, DefectorGroup};
 
 			RebuildAllIndividualsList ( );
 		}

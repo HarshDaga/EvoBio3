@@ -7,10 +7,10 @@ namespace EvoBio3.Collections
 	{
 		protected override void Create ( Variables v )
 		{
-			Both1Group      = new IndividualGroup ( IndividualType.Both1, v.Both1Quantity, v );
-			Both2Group      = new IndividualGroup ( IndividualType.Both2, v.Both2Quantity, v );
-			ResonationGroup = new IndividualGroup ( IndividualType.Resonation, v.ResonationQuantity, v );
-			NullGroup       = new IndividualGroup ( IndividualType.Null, v.NullQuantity, v );
+			Cooperator1Group = new IndividualGroup ( IndividualType.Cooperator1, v.Cooperator1Quantity, v );
+			Cooperator2Group = new IndividualGroup ( IndividualType.Cooperator2, v.Cooperator2Quantity, v );
+			ResonationGroup  = new IndividualGroup ( IndividualType.Resonation, v.ResonationQuantity, v );
+			DefectorGroup    = new IndividualGroup ( IndividualType.Defector, v.DefectorQuantity, v );
 		}
 	}
 }

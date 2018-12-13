@@ -160,7 +160,7 @@ namespace EvoBio3.Versions
 			{
 				var z = parent.GeneticQuality * V.PopulationSize * 10 / totalGenetic;
 
-				var geneticQuality = Utility.NextGaussianNonNegative ( z, V.SdGenetic );
+				var geneticQuality = Utility.NextGaussianNonNegative ( z, V.SdQuality );
 
 				var offspring = parent.Reproduce (
 					++lastId[parent.Type],

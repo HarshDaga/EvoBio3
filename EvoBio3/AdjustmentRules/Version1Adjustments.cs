@@ -7,8 +7,8 @@ namespace EvoBio3.AdjustmentRules
 		public override void AdjustStep2 ( )
 		{
 			Iteration.CalculateThresholds ( );
-			AdjustBoth1Step2 ( );
-			AdjustBoth2Step2 ( );
+			AdjustCooperator1Step2 ( );
+			AdjustCooperator2Step2 ( );
 		}
 
 		public override void CalculateFecundity ( )

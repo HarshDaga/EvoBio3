@@ -10,35 +10,35 @@ namespace EvoBio3.AdjustmentRules.Abstractions
 		AdjustmentRulesBase<Individual, IndividualGroup, Variables,
 			ISingleIteration<Individual, IndividualGroup, Variables>>
 	{
-		public override void AdjustBoth1Step2 ( )
+		public override void AdjustCooperator1Step2 ( )
 		{
-			if ( Iteration.Step1Rejects.Count >= V.PiD )
+			if ( Iteration.Step1Rejects.Count >= V.ReservationConditionsCutoff )
 				return;
 
-			foreach ( var ind in Iteration.Both1Group.Where (
-				x => x.PhenotypicQuality > Iteration.B1Percentile ) )
+			foreach ( var ind in Iteration.Cooperator1Group.Where (
+				x => x.PhenotypicQuality > Iteration.ReservationQualityCutoffForCooperator1Version1 ) )
 			{
 				ind.HasReserved = true;
-				ind.S           = Math.Max ( 0, ind.S - V.C1 );
+				ind.S           = Math.Max ( 0, ind.S - V.ReservationCostForCooperator1 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.B1Percentile,8:F4}; S ={ind.S,8:F4}" );
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.ReservationQualityCutoffForCooperator1Version1,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 
-		public override void AdjustBoth2Step2 ( )
+		public override void AdjustCooperator2Step2 ( )
 		{
-			if ( Iteration.Step1Rejects.Count >= V.PiD )
+			if ( Iteration.Step1Rejects.Count >= V.ReservationConditionsCutoff )
 				return;
 
-			foreach ( var ind in Iteration.Both2Group.Where (
-				x => x.PhenotypicQuality > Iteration.B2Percentile ) )
+			foreach ( var ind in Iteration.Cooperator2Group.Where (
+				x => x.PhenotypicQuality > Iteration.ReservationQualityCutoffForCooperator2Version1 ) )
 			{
 				ind.HasReserved = true;
-				ind.S           = Math.Max ( 0, ind.S - V.C2 );
+				ind.S           = Math.Max ( 0, ind.S - V.ReservationCostForCooperator2 );
 				if ( IsLoggingEnabled )
 					Logger.Debug (
-						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.B2Percentile,8:F4}; S ={ind.S,8:F4}" );
+						$"{ind.PaddedName} Qp {ind.PhenotypicQuality,8:F4} > {Iteration.ReservationQualityCutoffForCooperator2Version1,8:F4}; S ={ind.S,8:F4}" );
 			}
 		}
 	}

@@ -5,27 +5,27 @@ namespace EvoBio3.Core.Collections
 {
 	public abstract class VariablesBase : IVariables
 	{
-		public int PopulationSize => Both1Quantity + Both2Quantity + ResonationQuantity + NullQuantity;
-		public int Both1Quantity { get; set; }
-		public int Both2Quantity { get; set; }
+		public int PopulationSize => Cooperator1Quantity + Cooperator2Quantity + ResonationQuantity + DefectorQuantity;
+		public int Cooperator1Quantity { get; set; }
+		public int Cooperator2Quantity { get; set; }
 		public int ResonationQuantity { get; set; }
-		public int NullQuantity { get; set; }
-		public double SdGenetic { get; set; }
+		public int DefectorQuantity { get; set; }
+		public double SdQuality { get; set; }
 		public double SdPheno { get; set; }
 		public double MeanPerishStep1 { get; set; }
 		public double SdPerishStep1 { get; set; }
 		public double MeanPerishStep2 { get; set; }
 		public double SdPerishStep2 { get; set; }
 		public int Generations { get; set; }
-		public int Iterations { get; set; }
+		public int Runs { get; set; }
 		public double Z { get; set; }
-		public double B1 { get; set; }
-		public double B2 { get; set; }
-		public double Pr { get; set; }
-		public double PrB1 { get; set; }
-		public double PrB2 { get; set; }
-		public double Pb1 { get; set; }
-		public double Pb2 { get; set; }
+		public double ReservationQualityCutoffForCooperator1Version1 { get; set; }
+		public double ReservationQualityCutoffForCooperator2Version1 { get; set; }
+		public double ResonationQualityCutoffForResonationTypeVersion1 { get; set; }
+		public double ResonationQualityCutoffForCooperator1WithNoReservationVersion1 { get; set; }
+		public double ResonationQualityCutoffForCooperator2WithNoReservationVersion1 { get; set; }
+		public double ResonationQualityCutoffForCooperator1WithReservationVersion1 { get; set; }
+		public double ResonationQualityCutoffForCooperator2WithReservationVersion1 { get; set; }
 		public bool IsConfidenceIntervalsRequested { get; set; }
 		public bool ConsiderAllGenerations { get; set; }
 
@@ -33,13 +33,13 @@ namespace EvoBio3.Core.Collections
 		IVariables IVariables.Clone ( ) => (VariablesBase) MemberwiseClone ( );
 
 		public override string ToString ( ) =>
-			$"{nameof ( Both1Quantity )}: {Both1Quantity}, " +
-			$"{nameof ( Both2Quantity )}: {Both2Quantity}, " +
+			$"{nameof ( Cooperator1Quantity )}: {Cooperator1Quantity}, " +
+			$"{nameof ( Cooperator2Quantity )}: {Cooperator2Quantity}, " +
 			$"{nameof ( ResonationQuantity )}: {ResonationQuantity}, " +
-			$"{nameof ( NullQuantity )}: {NullQuantity}\n" +
+			$"{nameof ( DefectorQuantity )}: {DefectorQuantity}\n" +
 			$"{nameof ( Generations )}: {Generations}, " +
-			$"{nameof ( Iterations )}: {Iterations}\n" +
-			$"{nameof ( SdGenetic )}: {SdGenetic}, " +
+			$"{nameof ( Runs )}: {Runs}\n" +
+			$"{nameof ( SdQuality )}: {SdQuality}, " +
 			$"{nameof ( SdPheno )}: {SdPheno}\n" +
 			$"{nameof ( MeanPerishStep1 )}: {MeanPerishStep1}, " +
 			$"{nameof ( SdPerishStep1 )}: {SdPerishStep1}\n" +

@@ -2,9 +2,9 @@
 {
 	public enum IndividualType
 	{
-		Both1,
-		Both2,
+		Cooperator1,
+		Cooperator2,
 		Resonation,
-		Null
+		Defector
 	}
 }

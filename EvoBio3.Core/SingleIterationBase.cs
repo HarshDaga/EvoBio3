@@ -24,16 +24,16 @@ namespace EvoBio3.Core
 			set => Population.AllIndividuals = value;
 		}
 
-		public TGroup Both1Group
+		public TGroup Cooperator1Group
 		{
-			get => Population.Both1Group;
-			set => Population.Both1Group = value;
+			get => Population.Cooperator1Group;
+			set => Population.Cooperator1Group = value;
 		}
 
-		public TGroup Both2Group
+		public TGroup Cooperator2Group
 		{
-			get => Population.Both2Group;
-			set => Population.Both2Group = value;
+			get => Population.Cooperator2Group;
+			set => Population.Cooperator2Group = value;
 		}
 
 		public TGroup ResonationGroup
@@ -42,10 +42,10 @@ namespace EvoBio3.Core
 			set => Population.ResonationGroup = value;
 		}
 
-		public TGroup NullGroup
+		public TGroup DefectorGroup
 		{
-			get => Population.NullGroup;
-			set => Population.NullGroup = value;
+			get => Population.DefectorGroup;
+			set => Population.DefectorGroup = value;
 		}
 
 		public int Step1PerishCount { get; protected set; }
@@ -70,13 +70,13 @@ namespace EvoBio3.Core
 
 		public double PerishedPercent { get; protected set; }
 		public int GenerationsPassed { get; protected set; }
-		public double B1Percentile { get; protected set; }
-		public double B2Percentile { get; protected set; }
-		public double PrPercentile { get; protected set; }
-		public double PrB1Percentile { get; protected set; }
-		public double PrB2Percentile { get; protected set; }
-		public double Pb1Percentile { get; protected set; }
-		public double Pb2Percentile { get; protected set; }
+		public double ReservationQualityCutoffForCooperator1Version1 { get; protected set; }
+		public double ReservationQualityCutoffForCooperator2Version1 { get; protected set; }
+		public double ResonationQualityCutoffForResonationTypeVersion1 { get; protected set; }
+		public double ResonationQualityCutoffForCooperator1WithNoReservationVersion1 { get; protected set; }
+		public double ResonationQualityCutoffForCooperator2WithNoReservationVersion1 { get; protected set; }
+		public double ResonationQualityCutoffForCooperator1WithReservationVersion1 { get; protected set; }
+		public double ResonationQualityCutoffForCooperator2WithReservationVersion1 { get; protected set; }
 
 		public IHeritabilitySummary Heritability { get; set; }
 		public Winner Winner { get; set; }
@@ -147,24 +147,38 @@ namespace EvoBio3.Core
 				.OrderBy ( x => x )
 				.ToList ( );
 
-			B1Percentile   = values.AtPercentile ( V.B1 );
-			B2Percentile   = values.AtPercentile ( V.B2 );
-			PrPercentile   = values.AtPercentile ( V.Pr, 0 );
-			PrB1Percentile = values.AtPercentile ( V.PrB1, 0 );
-			PrB2Percentile = values.AtPercentile ( V.PrB2, 0 );
-			Pb1Percentile  = values.AtPercentile ( V.Pb1, 0 );
-			Pb2Percentile  = values.AtPercentile ( V.Pb2, 0 );
+			ReservationQualityCutoffForCooperator1Version1 =
+				values.AtPercentile ( V.ReservationQualityCutoffForCooperator1Version1 );
+			ReservationQualityCutoffForCooperator2Version1 =
+				values.AtPercentile ( V.ReservationQualityCutoffForCooperator2Version1 );
+			ResonationQualityCutoffForResonationTypeVersion1 =
+				values.AtPercentile ( V.ResonationQualityCutoffForResonationTypeVersion1, 0 );
+			ResonationQualityCutoffForCooperator1WithNoReservationVersion1 =
+				values.AtPercentile ( V.ResonationQualityCutoffForCooperator1WithNoReservationVersion1, 0 );
+			ResonationQualityCutoffForCooperator2WithNoReservationVersion1 =
+				values.AtPercentile ( V.ResonationQualityCutoffForCooperator2WithNoReservationVersion1, 0 );
+			ResonationQualityCutoffForCooperator1WithReservationVersion1 =
+				values.AtPercentile ( V.ResonationQualityCutoffForCooperator1WithReservationVersion1, 0 );
+			ResonationQualityCutoffForCooperator2WithReservationVersion1 =
+				values.AtPercentile ( V.ResonationQualityCutoffForCooperator2WithReservationVersion1, 0 );
 
 			if ( IsLoggingEnabled )
 			{
 				Logger.Debug ( "\nCalculate Thresholds:\n" );
-				Logger.Debug ( $"Both1 Reservation Threshold      @ {V.B1 / 100:P} = {B1Percentile:F4}" );
-				Logger.Debug ( $"Both2 Reservation Threshold      @ {V.B2 / 100:P} = {B2Percentile:F4}" );
-				Logger.Debug ( $"Both1 Resonation Threshold       @ {V.PrB1 / 100:P} = {PrB1Percentile:F4}" );
-				Logger.Debug ( $"Both2 Resonation Threshold       @ {V.PrB2 / 100:P} = {PrB2Percentile:F4}" );
-				Logger.Debug ( $"Resonation Threshold             @ {V.Pr / 100:P} = {PrPercentile:F4}" );
-				Logger.Debug ( $"Both1 Threshold                  @ {V.Pb1 / 100:P} = {Pb1Percentile:F4}" );
-				Logger.Debug ( $"Both2 Threshold                  @ {V.Pb2 / 100:P} = {Pb2Percentile:F4}" );
+				Logger.Debug (
+					$"Cooperator1 Reservation Threshold      @ {V.ReservationQualityCutoffForCooperator1Version1 / 100:P} = {ReservationQualityCutoffForCooperator1Version1:F4}" );
+				Logger.Debug (
+					$"Cooperator2 Reservation Threshold      @ {V.ReservationQualityCutoffForCooperator2Version1 / 100:P} = {ReservationQualityCutoffForCooperator2Version1:F4}" );
+				Logger.Debug (
+					$"Cooperator1 Resonation Threshold       @ {V.ResonationQualityCutoffForCooperator1WithNoReservationVersion1 / 100:P} = {ResonationQualityCutoffForCooperator1WithNoReservationVersion1:F4}" );
+				Logger.Debug (
+					$"Cooperator2 Resonation Threshold       @ {V.ResonationQualityCutoffForCooperator2WithNoReservationVersion1 / 100:P} = {ResonationQualityCutoffForCooperator2WithNoReservationVersion1:F4}" );
+				Logger.Debug (
+					$"Resonation Threshold             @ {V.ResonationQualityCutoffForResonationTypeVersion1 / 100:P} = {ResonationQualityCutoffForResonationTypeVersion1:F4}" );
+				Logger.Debug (
+					$"Cooperator1 Threshold                  @ {V.ResonationQualityCutoffForCooperator1WithReservationVersion1 / 100:P} = {ResonationQualityCutoffForCooperator1WithReservationVersion1:F4}" );
+				Logger.Debug (
+					$"Cooperator2 Threshold                  @ {V.ResonationQualityCutoffForCooperator2WithReservationVersion1 / 100:P} = {ResonationQualityCutoffForCooperator2WithReservationVersion1:F4}" );
 			}
 		}
 
@@ -195,10 +209,10 @@ namespace EvoBio3.Core
 			var offsprings = new List<TIndividual> ( V.PopulationSize );
 			var lastId = new Dictionary<IndividualType, int>
 			{
-				[IndividualType.Both1]      = 0,
-				[IndividualType.Both2]      = 0,
-				[IndividualType.Resonation] = 0,
-				[IndividualType.Null]       = 0
+				[IndividualType.Cooperator1] = 0,
+				[IndividualType.Cooperator2] = 0,
+				[IndividualType.Resonation]  = 0,
+				[IndividualType.Defector]    = 0
 			};
 
 			if ( IsLoggingEnabled )
@@ -281,17 +295,17 @@ namespace EvoBio3.Core
 			{
 				switch ( AllGroups[0].Type )
 				{
-					case IndividualType.Both1:
-						Winner = Winner.Both1;
+					case IndividualType.Cooperator1:
+						Winner = Winner.Cooperator1;
 						break;
-					case IndividualType.Both2:
-						Winner = Winner.Both2;
+					case IndividualType.Cooperator2:
+						Winner = Winner.Cooperator2;
 						break;
 					case IndividualType.Resonation:
 						Winner = Winner.Resonation;
 						break;
-					case IndividualType.Null:
-						Winner = Winner.Null;
+					case IndividualType.Defector:
+						Winner = Winner.Defector;
 						break;
 				}
 

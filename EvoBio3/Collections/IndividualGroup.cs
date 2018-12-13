@@ -19,7 +19,7 @@ namespace EvoBio3.Collections
 		                         IVariables v ) : base ( type, count )
 		{
 			var geneticQualities = Utility.NextGaussianNonNegativeSymbols ( 10,
-			                                                                v.SdGenetic,
+			                                                                v.SdQuality,
 			                                                                count );
 			for ( var i = 0; i < count; i++ )
 			{

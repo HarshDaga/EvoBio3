@@ -10,13 +10,13 @@
 
 		void Reset ( );
 		void AdjustStep1 ( );
-		void AdjustBoth1Step2 ( );
-		void AdjustBoth2Step2 ( );
+		void AdjustCooperator1Step2 ( );
+		void AdjustCooperator2Step2 ( );
 		void AdjustResonationStep2 ( );
 		void AdjustStep2 ( );
 
-		void CalculateBoth1Fecundity ( );
-		void CalculateBoth2Fecundity ( );
+		void CalculateCooperator1Fecundity ( );
+		void CalculateCooperator2Fecundity ( );
 		void CalculateResonationFecundity ( );
 		void CalculateFecundity ( );
 	}

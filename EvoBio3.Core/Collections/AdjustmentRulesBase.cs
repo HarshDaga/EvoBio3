@@ -35,11 +35,11 @@ namespace EvoBio3.Core.Collections
 		{
 		}
 
-		public virtual void AdjustBoth1Step2 ( )
+		public virtual void AdjustCooperator1Step2 ( )
 		{
 		}
 
-		public virtual void AdjustBoth2Step2 ( )
+		public virtual void AdjustCooperator2Step2 ( )
 		{
 		}
 
@@ -49,16 +49,16 @@ namespace EvoBio3.Core.Collections
 
 		public virtual void AdjustStep2 ( )
 		{
-			AdjustBoth1Step2 ( );
-			AdjustBoth2Step2 ( );
+			AdjustCooperator1Step2 ( );
+			AdjustCooperator2Step2 ( );
 			AdjustResonationStep2 ( );
 		}
 
-		public virtual void CalculateBoth1Fecundity ( )
+		public virtual void CalculateCooperator1Fecundity ( )
 		{
 		}
 
-		public virtual void CalculateBoth2Fecundity ( )
+		public virtual void CalculateCooperator2Fecundity ( )
 		{
 		}
 
@@ -68,8 +68,8 @@ namespace EvoBio3.Core.Collections
 
 		public virtual void CalculateFecundity ( )
 		{
-			CalculateBoth1Fecundity ( );
-			CalculateBoth2Fecundity ( );
+			CalculateCooperator1Fecundity ( );
+			CalculateCooperator2Fecundity ( );
 			CalculateResonationFecundity ( );
 		}
 	}

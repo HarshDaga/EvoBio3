@@ -145,35 +145,35 @@ namespace EvoBio3.Core.Collections
 		private class CsvRecord
 		{
 			public int Generation { get; }
-			public double Both1High { get; }
-			public double Both1Low { get; }
-			public double Both1Mean { get; }
-			public double Both2High { get; }
-			public double Both2Low { get; }
-			public double Both2Mean { get; }
+			public double Cooperator1High { get; }
+			public double Cooperator1Low { get; }
+			public double Cooperator1Mean { get; }
+			public double Cooperator2High { get; }
+			public double Cooperator2Low { get; }
+			public double Cooperator2Mean { get; }
 			public double ResonationHigh { get; }
 			public double ResonationLow { get; }
 			public double ResonationMean { get; }
-			public double NullHigh { get; }
-			public double NullLow { get; }
-			public double NullMean { get; }
+			public double DefectorHigh { get; }
+			public double DefectorLow { get; }
+			public double DefectorMean { get; }
 
 			public CsvRecord ( int generation,
 			                   IDictionary<IndividualType, ConfidenceInterval> record )
 			{
-				Generation     = generation;
-				Both1Low       = record[IndividualType.Both1].Low;
-				Both1Mean      = record[IndividualType.Both1].Mean;
-				Both1High      = record[IndividualType.Both1].High;
-				Both2Low       = record[IndividualType.Both2].Low;
-				Both2Mean      = record[IndividualType.Both2].Mean;
-				Both2High      = record[IndividualType.Both2].High;
-				ResonationLow  = record[IndividualType.Resonation].Low;
-				ResonationMean = record[IndividualType.Resonation].Mean;
-				ResonationHigh = record[IndividualType.Resonation].High;
-				NullLow        = record[IndividualType.Null].Low;
-				NullMean       = record[IndividualType.Null].Mean;
-				NullHigh       = record[IndividualType.Null].High;
+				Generation      = generation;
+				Cooperator1Low  = record[IndividualType.Cooperator1].Low;
+				Cooperator1Mean = record[IndividualType.Cooperator1].Mean;
+				Cooperator1High = record[IndividualType.Cooperator1].High;
+				Cooperator2Low  = record[IndividualType.Cooperator2].Low;
+				Cooperator2Mean = record[IndividualType.Cooperator2].Mean;
+				Cooperator2High = record[IndividualType.Cooperator2].High;
+				ResonationLow   = record[IndividualType.Resonation].Low;
+				ResonationMean  = record[IndividualType.Resonation].Mean;
+				ResonationHigh  = record[IndividualType.Resonation].High;
+				DefectorLow     = record[IndividualType.Defector].Low;
+				DefectorMean    = record[IndividualType.Defector].Mean;
+				DefectorHigh    = record[IndividualType.Defector].High;
 			}
 		}
 	}

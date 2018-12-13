@@ -12,10 +12,10 @@ namespace EvoBio3.Core.Interfaces
 		TVariables V { get; }
 		TGroup[] AllGroups { get; }
 		IList<TIndividual> AllIndividuals { get; }
-		TGroup Both1Group { get; }
-		TGroup Both2Group { get; }
+		TGroup Cooperator1Group { get; }
+		TGroup Cooperator2Group { get; }
 		TGroup ResonationGroup { get; }
-		TGroup NullGroup { get; }
+		TGroup DefectorGroup { get; }
 		int Step1PerishCount { get; }
 		int Step2PerishCount { get; }
 		IList<TIndividual> Step1Rejects { get; }
@@ -26,13 +26,13 @@ namespace EvoBio3.Core.Interfaces
 		IHeritabilitySummary Heritability { get; }
 		Winner Winner { get; }
 		int GenerationsPassed { get; }
-		double B1Percentile { get; }
-		double B2Percentile { get; }
-		double PrB1Percentile { get; }
-		double PrB2Percentile { get; }
-		double PrPercentile { get; }
-		double Pb1Percentile { get; }
-		double Pb2Percentile { get; }
+		double ReservationQualityCutoffForCooperator1Version1 { get; }
+		double ReservationQualityCutoffForCooperator2Version1 { get; }
+		double ResonationQualityCutoffForCooperator1WithNoReservationVersion1 { get; }
+		double ResonationQualityCutoffForCooperator2WithNoReservationVersion1 { get; }
+		double ResonationQualityCutoffForResonationTypeVersion1 { get; }
+		double ResonationQualityCutoffForCooperator1WithReservationVersion1 { get; }
+		double ResonationQualityCutoffForCooperator2WithReservationVersion1 { get; }
 
 		IAdjustmentRules<TIndividual, TGroup, TVariables,
 			ISingleIteration<TIndividual, TGroup, TVariables>> AdjustmentRules { get; }
