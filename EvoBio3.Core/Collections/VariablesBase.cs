@@ -34,7 +34,7 @@ namespace EvoBio3.Core.Collections
 
 		public override string ToString ( ) =>
 			$"{nameof ( Cooperator1Quantity )}: {Cooperator1Quantity}, " +
-			$"{nameof ( Cooperator2Quantity )}: {Cooperator2Quantity}, " +
+			$"{nameof ( Cooperator2Quantity )}: {Cooperator2Quantity}\n" +
 			$"{nameof ( ResonationQuantity )}: {ResonationQuantity}, " +
 			$"{nameof ( DefectorQuantity )}: {DefectorQuantity}\n" +
 			$"{nameof ( Generations )}: {Generations}, " +
@@ -44,7 +44,7 @@ namespace EvoBio3.Core.Collections
 			$"{nameof ( MeanPerishStep1 )}: {MeanPerishStep1}, " +
 			$"{nameof ( SdPerishStep1 )}: {SdPerishStep1}\n" +
 			$"{nameof ( MeanPerishStep2 )}: {MeanPerishStep2}, " +
-			$"{nameof ( SdPerishStep2 )}: {SdPerishStep2}, " +
+			$"{nameof ( SdPerishStep2 )}: {SdPerishStep2}\n" +
 			$"{nameof ( Z )}: {Z}\n";
 
 		[Pure]
